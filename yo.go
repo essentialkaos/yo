@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -277,6 +278,8 @@ func processData(processor []string, data []*simpleyaml.Yaml) {
 			result = processorFuncLength(data, result)
 		case "keys":
 			result = processorFuncKeys(data, result)
+		case "sort":
+			result = processorFuncSort(result)
 		default:
 			printError("Unknown function \"%s\"", pf)
 			os.Exit(1)
@@ -337,6 +340,21 @@ func processorFuncKeys(data []*simpleyaml.Yaml, k interface{}) []string {
 			keys, _ := item.GetMapKeys()
 			result = append(result, keys...)
 		}
+	}
+
+	return result
+}
+
+// processorFuncKeys is sort processor
+func processorFuncSort(k interface{}) []string {
+	var result []string
+
+	switch k.(type) {
+	case string:
+		result = []string{k.(string)}
+	case []string:
+		result = k.([]string)
+		sort.Strings(result)
 	}
 
 	return result

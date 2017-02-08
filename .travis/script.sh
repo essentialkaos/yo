@@ -38,64 +38,66 @@ has_errors=""
 ################################################################################
 
 main() {
-	header "Basic selectors"
+  header "Basic selectors"
 
-	check ".name"    "John Doe"
-	check ".age"     "35"
-	check ".balance" "45.89"
-	check ".admin"   "true"
+  check ".name"    "John Doe"
+  check ".age"     "35"
+  check ".balance" "45.89"
+  check ".admin"   "true"
 
-	header "Map selectors"
+  header "Map selectors"
 
-	check ".meta.uid" "120"
-	check ".meta.gid" "350"
+  check ".meta.uid" "120"
+  check ".meta.gid" "350"
 
-	header "Array selectors"
+  header "Array selectors"
 
-	check ".categories[0]" "category1"
-	check ".categories[0:1]" "category1"
-	check ".categories[:1]" "category1"
-	check ".categories[]" "category1 category2"
-	check ".categories[0,1]" "category1 category2"
-	check ".categories[1,0]" "category2 category1"
-	check ".categories[:]" "category1 category2"
-	check ".categories[0:2]" "category1 category2"
+  check ".categories[0]" "category1"
+  check ".categories[0:1]" "category1"
+  check ".categories[:1]" "category1"
+  check ".categories[]" "category1 category2"
+  check ".categories[1,2]" "category1 category2"
+  check ".categories[2,1]" "category2 category1"
+  check ".categories[:]" "category1 category2"
+  check ".categories[0:2]" "category1 category2"
 
-	header "Processors"
+  header "Processors"
 
-	check ".name | length"        "8"
-	check ".categories | length"  "2"
-	check ".meta | length"        "2"
-	check ".array2 | length"      "2"
-	check ".array2[] | length"    "2 2"
-	check ".meta | keys"          "uid gid"
-	check ".meta | keys | length" "2"
+  check ".name | length"        "8"
+  check ".categories | length"  "2"
+  check ".meta | length"        "2"
+  check ".array2 | length"      "2"
+  check ".array2[] | length"    "2 2"
+  check ".meta | keys | sort"   "gid uid"
+  check ".meta | keys | sort"   "gid uid"
+  check ".meta | keys | length" "2"
+  check ".meta | keys | sort | length" "2"
 
-	echo ""
+  echo ""
 
-	if [[ -n $has_errors ]] ; then
-		exit 1
-	fi
+  if [[ -n $has_errors ]] ; then
+    exit 1
+  fi
 }
 
 check() {
-	local query="$1"
-	local result="$2"
-	local output
+  local query="$1"
+  local result="$2"
+  local output
 
-	output=$($BINARY -f $TEST_DATA "$query" | tr '\n' ' ' | sed 's/ $//')
+  output=$($BINARY -f $TEST_DATA "$query" | tr '\n' ' ' | sed 's/ $//')
 
-	if [[ "$result" == "$output" ]] ; then
-		echo -e "${CL_GREEN}✓ ${CL_NORM}${query}${CL_DARK} → \"$output\"${CL_NORM}"
-	else
-		echo -e "${CL_RED}✕ ${CL_NORM}${query}"
-		echo -e "${CL_GREY}  \"$output\" ≠ \"$result\"${CL_NORM}"
-		has_errors=true
-	fi
+  if [[ "$result" == "$output" ]] ; then
+    echo -e "${CL_GREEN}✓ ${CL_NORM}${query}${CL_DARK} → \"$output\"${CL_NORM}"
+  else
+    echo -e "${CL_RED}✕ ${CL_NORM}${query}"
+    echo -e "${CL_GREY}  \"$output\" ≠ \"$result\"${CL_NORM}"
+    has_errors=true
+  fi
 }
 
 header() {
-	echo -e "\n${CL_BOLD}▾ ${1}${CL_NORM}\n"
+  echo -e "\n${CL_BOLD}▾ ${1}${CL_NORM}\n"
 }
 
 ################################################################################
