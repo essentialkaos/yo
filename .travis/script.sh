@@ -56,8 +56,9 @@ main() {
   check ".categories[0:1]" "category1"
   check ".categories[:1]" "category1"
   check ".categories[]" "category1 category2"
-  check ".categories[1,2]" "category1 category2"
-  check ".categories[2,1]" "category2 category1"
+  check ".categories[0,1]" "category1 category2"
+  check ".categories[1,0]" "category2 category1"
+  check ".categories[0,1,2,3,4]" "category1 category2"
   check ".categories[:]" "category1 category2"
   check ".categories[0:2]" "category1 category2"
 
