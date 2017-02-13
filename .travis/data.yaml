@@ -1,0 +1,26 @@
+name: John Doe
+age: 35
+balance: 45.89
+admin: true
+categories:
+   - category1
+   - category2
+meta:
+  uid: 120
+  gid: 350
+test1:
+    test2:
+        test3:
+            - test31
+            - test32
+            - test33
+        test4: test99
+array1:
+   - test1
+   -
+   - test3
+array2:
+  - file: test1
+    size: 100
+  - file: test2
+    size: 200
