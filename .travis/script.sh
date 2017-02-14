@@ -61,8 +61,8 @@ main() {
   check ".categories[0,1,2,3,4]" "category1 category2"
   check ".categories[:]" "category1 category2"
   check ".categories[0:2]" "category1 category2"
-  check ".array2" "- file: staging.log keep: 7 - file: xvlr.log keep: 365 - file: unicorn.log keep: 730"
-  check ".custom[0].file" "staging.log"
+  check ".array2" "- file: test1 size: 100 - file: test2 size: 200"
+  check ".array2[0].file" "test1"
 
   header "Processors"
 
@@ -88,7 +88,7 @@ check() {
   local result="$2"
   local output
 
-  output=$($BINARY -f $TEST_DATA "$query" | tr '\n' ' ' | sed 's/ $//')
+  output=$($BINARY -f $TEST_DATA "$query" | tr '\n' ' ' | tr -s " " | sed 's/ $//')
 
   if [[ "$result" == "$output" ]] ; then
     echo -e "${CL_GREEN}✓ ${CL_NORM}${query}${CL_DARK} → \"$output\"${CL_NORM}"
