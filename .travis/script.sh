@@ -87,7 +87,7 @@ check() {
   local result="$2"
   local output
 
-  output=$($BINARY -f $TEST_DATA "$query" | tr '\n' ' ' | tr -s " " | sed 's/ $//')
+  output=$($BINARY -f $TEST_DATA "$query" | tr '\n' ' ' | sed 's/ $//')
 
   if [[ "$result" == "$output" ]] ; then
     echo -e "${CL_GREEN}✓ ${CL_NORM}${query}${CL_DARK} → \"$output\"${CL_NORM}"
