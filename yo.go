@@ -257,7 +257,11 @@ func renderData(data []*simpleyaml.Yaml) {
 	for _, item := range data {
 		switch {
 		case item.IsArray():
-			fmt.Println(strings.Join(item.MustStringArray(nil), "\n"))
+			if item.GetIndex(0).IsMap() || item.GetIndex(0).IsArray() {
+				encodeYaml(item)
+			} else {
+				fmt.Println(strings.Join(item.MustStringArray(nil), "\n"))
+			}
 
 		case item.IsMap():
 			encodeYaml(item)

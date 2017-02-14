@@ -61,6 +61,8 @@ main() {
   check ".categories[0,1,2,3,4]" "category1 category2"
   check ".categories[:]" "category1 category2"
   check ".categories[0:2]" "category1 category2"
+  check ".array2" "- file: staging.log keep: 7 - file: xvlr.log keep: 365 - file: unicorn.log keep: 730"
+  check ".custom[0].file" "staging.log"
 
   header "Processors"
 
