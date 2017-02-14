@@ -1,4 +1,4 @@
-## Yo
+## Yo [![License](https://gh.kaos.io/ekol.svg)](https://essentialkaos.com/ekol)
 
 `yo` is command-line YAML processor.
 
