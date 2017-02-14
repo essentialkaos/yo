@@ -44,7 +44,7 @@
 
 Summary:         Command-line YAML processor
 Name:            yo
-Version:         0.0.1
+Version:         0.0.2
 Release:         0%{?dist}
 Group:           Applications/System
 License:         EKOL
@@ -92,5 +92,8 @@ rm -rf %{buildroot}
 ###############################################################################
 
 %changelog
+* Tue Feb 14 2017 Anton Novojilov <andy@essentialkaos.com> - 0.0.2-0
+- Fixed output for arrays with maps and sub arrays
+
 * Tue Feb 14 2017 Anton Novojilov <andy@essentialkaos.com> - 0.0.1-0
 - Initial release
