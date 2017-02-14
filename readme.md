@@ -1,4 +1,4 @@
-## Yo [![License](https://gh.kaos.io/ekol.svg)](https://essentialkaos.com/ekol)
+## Yo [![Go Report Card](https://goreportcard.com/badge/github.com/essentialkaos/yo)](https://goreportcard.com/report/github.com/essentialkaos/yo) [![License](https://gh.kaos.io/ekol.svg)](https://essentialkaos.com/ekol)
 
 `yo` is command-line YAML processor.
 
