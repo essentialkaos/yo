@@ -61,7 +61,7 @@ main() {
   check ".categories[0,1,2,3,4]" "category1 category2"
   check ".categories[:]" "category1 category2"
   check ".categories[0:2]" "category1 category2"
-  check ".array2" "- file: test1 size: 100 - file: test2 size: 200"
+  check ".array2" "- file: test1   size: 100 - file: test2   size: 200"
   check ".array2[0].file" "test1"
 
   header "Processors"
@@ -71,9 +71,9 @@ main() {
   check ".meta | length"        "2"
   check ".array2 | length"      "2"
   check ".array2[] | length"    "2 2"
-  check ".meta | keys | sort"   "gid uid"
   check ".meta | keys | length" "2"
   check ".meta | keys | sort | length" "2"
+  check ".meta | keys | sort"   "gid uid"
 
   echo ""
 
