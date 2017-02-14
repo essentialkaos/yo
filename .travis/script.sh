@@ -61,7 +61,7 @@ main() {
   check ".categories[0,1,2,3,4]" "category1 category2"
   check ".categories[:]" "category1 category2"
   check ".categories[0:2]" "category1 category2"
-  check ".array2" "- file: test1 size: 100 - file: test2 size: 200"
+  check ".array2" "- file: test1   size: 100 - file: test2   size: 200"
   check ".array2[0].file" "test1"
 
   header "Processors"
@@ -71,12 +71,11 @@ main() {
   check ".meta | length"        "2"
   check ".array2 | length"      "2"
   check ".array2[] | length"    "2 2"
-  check ".meta | keys | sort"   "gid uid"
-  check ".meta | keys | sort"   "gid uid"
   check ".meta | keys | length" "2"
   check ".meta | keys | sort | length" "2"
+  check ".meta | keys | sort"   "gid uid"
 
-  echo ""
+  echo -e "$CL_NORM"
 
   if [[ -n $has_errors ]] ; then
     exit 1
@@ -88,7 +87,7 @@ check() {
   local result="$2"
   local output
 
-  output=$($BINARY -f $TEST_DATA "$query" | tr '\n' ' ' | tr -s " " | sed 's/ $//')
+  output=$($BINARY -f $TEST_DATA "$query" | tr '\n' ' ' | sed 's/ $//')
 
   if [[ "$result" == "$output" ]] ; then
     echo -e "${CL_GREEN}✓ ${CL_NORM}${query}${CL_DARK} → \"$output\"${CL_NORM}"
