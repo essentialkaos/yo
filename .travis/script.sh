@@ -73,8 +73,8 @@ main() {
   check ".array2[] | length"    "2 2"
   check ".meta | keys | sort"   "gid uid"
   check ".meta | keys | sort"   "gid uid"
-  check ".meta | keys | length" "2"
   check ".meta | keys | sort | length" "2"
+  check ".meta | keys | length" "2"
 
   echo ""
 
