@@ -75,7 +75,7 @@ main() {
   check ".meta | keys | sort | length" "2"
   check ".meta | keys | sort"   "gid uid"
 
-  echo ""
+  echo -e "$CL_NORM"
 
   if [[ -n $has_errors ]] ; then
     exit 1
