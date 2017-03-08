@@ -38,6 +38,15 @@ has_errors=""
 ################################################################################
 
 main() {
+  if [[ ! -e $BINARY ]] ; then
+    echo -e "${CL_RED}Can't find yo binary${CL_NORM}"
+    exit 1
+  fi
+
+  runTest
+}
+
+runTest() {
   header "Basic selectors"
 
   check ".name"    "John Doe"
