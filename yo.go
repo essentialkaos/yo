@@ -537,8 +537,6 @@ func (t Token) IsArrayToken() bool {
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 func showUsage() {
-	usage.Breadcrumbs = true
-
 	info := usage.NewInfo("", "query")
 
 	info.AddOption(ARG_FROM_FILE, "Read data from file", "filename")
