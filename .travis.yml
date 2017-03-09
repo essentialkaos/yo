@@ -5,6 +5,7 @@ language: go
 go:
   - 1.6.x
   - 1.7.x
+  - 1.8.x
   - tip
 
 os:
@@ -21,9 +22,8 @@ matrix:
     - go: tip
 
 before_install:
-  - go get -v pkg.re/essentialkaos/ek.v6
-  - go get -v pkg.re/essentialkaos/go-simpleyaml.v1
+  - make deps
 
 script:
-  - go build yo.go
+  - make all
   - .travis/script.sh

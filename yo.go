@@ -15,11 +15,11 @@ import (
 	"strconv"
 	"strings"
 
-	"pkg.re/essentialkaos/ek.v6/arg"
-	"pkg.re/essentialkaos/ek.v6/env"
-	"pkg.re/essentialkaos/ek.v6/fmtc"
-	"pkg.re/essentialkaos/ek.v6/fsutil"
-	"pkg.re/essentialkaos/ek.v6/usage"
+	"pkg.re/essentialkaos/ek.v7/arg"
+	"pkg.re/essentialkaos/ek.v7/env"
+	"pkg.re/essentialkaos/ek.v7/fmtc"
+	"pkg.re/essentialkaos/ek.v7/fsutil"
+	"pkg.re/essentialkaos/ek.v7/usage"
 
 	"pkg.re/essentialkaos/go-simpleyaml.v1"
 )
@@ -28,7 +28,7 @@ import (
 
 const (
 	APP  = "Yo"
-	VER  = "0.0.2"
+	VER  = "0.1.0"
 	DESC = "Command-line YAML processor"
 )
 
@@ -537,8 +537,6 @@ func (t Token) IsArrayToken() bool {
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 func showUsage() {
-	usage.Breadcrumbs = true
-
 	info := usage.NewInfo("", "query")
 
 	info.AddOption(ARG_FROM_FILE, "Read data from file", "filename")
