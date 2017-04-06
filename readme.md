@@ -1,4 +1,4 @@
-## Yo [![Build Status](https://travis-ci.org/essentialkaos/yo.svg?branch=master)](https://travis-ci.org/essentialkaos/yo) [![Go Report Card](https://goreportcard.com/badge/github.com/essentialkaos/yo)](https://goreportcard.com/report/github.com/essentialkaos/yo) [![License](https://gh.kaos.io/ekol.svg)](https://essentialkaos.com/ekol)
+# Yo [![Build Status](https://travis-ci.org/essentialkaos/yo.svg?branch=master)](https://travis-ci.org/essentialkaos/yo) [![Go Report Card](https://goreportcard.com/badge/github.com/essentialkaos/yo)](https://goreportcard.com/report/github.com/essentialkaos/yo) [![License](https://gh.kaos.io/ekol.svg)](https://essentialkaos.com/ekol)
 
 `yo` is command-line YAML processor.
 
@@ -8,7 +8,9 @@
 * [Contributing](#contributing)
 * [License](#license)
 
-#### Installation
+## Installation
+
+### From source
 
 Before the initial install allows git to use redirects for [pkg.re](https://github.com/essentialkaos/pkgre) service (reason why you should do this described [here](https://github.com/essentialkaos/pkgre#git-support)):
 
@@ -28,7 +30,11 @@ If you want update Yo to latest stable release, do:
 go get -u github.com/essentialkaos/yo
 ```
 
-#### Usage
+### Prebuilt binaries
+
+You can download prebuilt binaries for Linux and OS X from [EK Apps Repository](https://apps.kaos.io/yo/latest).
+
+## Usage
 
 ```
 Usage: yo {options} query
@@ -68,17 +74,17 @@ Examples
 
 ```
 
-#### Build Status
+## Build Status
 
 | Branch | Status |
 |------------|--------|
 | `master` | [![Build Status](https://travis-ci.org/essentialkaos/yo.svg?branch=master)](https://travis-ci.org/essentialkaos/yo) |
 | `develop` | [![Build Status](https://travis-ci.org/essentialkaos/yo.svg?branch=develop)](https://travis-ci.org/essentialkaos/yo) |
 
-#### Contributing
+## Contributing
 
 Before contributing to this project please read our [Contributing Guidelines](https://github.com/essentialkaos/contributing-guidelines#contributing-guidelines).
 
-#### License
+## License
 
 [EKOL](https://essentialkaos.com/ekol)
