@@ -15,11 +15,11 @@ import (
 	"strconv"
 	"strings"
 
-	"pkg.re/essentialkaos/ek.v7/arg"
-	"pkg.re/essentialkaos/ek.v7/env"
-	"pkg.re/essentialkaos/ek.v7/fmtc"
-	"pkg.re/essentialkaos/ek.v7/fsutil"
-	"pkg.re/essentialkaos/ek.v7/usage"
+	"pkg.re/essentialkaos/ek.v8/arg"
+	"pkg.re/essentialkaos/ek.v8/env"
+	"pkg.re/essentialkaos/ek.v8/fmtc"
+	"pkg.re/essentialkaos/ek.v8/fsutil"
+	"pkg.re/essentialkaos/ek.v8/usage"
 
 	"pkg.re/essentialkaos/go-simpleyaml.v1"
 )
@@ -28,7 +28,7 @@ import (
 
 const (
 	APP  = "Yo"
-	VER  = "0.1.0"
+	VER  = "0.2.0"
 	DESC = "Command-line YAML processor"
 )
 

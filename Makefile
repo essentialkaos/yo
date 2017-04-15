@@ -16,7 +16,7 @@ yo:
 
 deps:
 	git config --global http.https://pkg.re.followRedirects true
-	go get -v pkg.re/essentialkaos/ek.v7
+	go get -v pkg.re/essentialkaos/ek.v8
 	go get -v pkg.re/essentialkaos/go-simpleyaml.v1
 
 fmt:
