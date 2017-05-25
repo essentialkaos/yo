@@ -44,7 +44,7 @@
 
 Summary:         Command-line YAML processor
 Name:            yo
-Version:         0.2.0
+Version:         0.3.0
 Release:         0%{?dist}
 Group:           Applications/System
 License:         EKOL
@@ -92,6 +92,9 @@ rm -rf %{buildroot}
 ###############################################################################
 
 %changelog
+* Thu May 25 2017 Anton Novojilov <andy@essentialkaos.com> - 0.3.0-0
+- ek package updated to v8
+
 * Sat Apr 15 2017 Anton Novojilov <andy@essentialkaos.com> - 0.2.0-0
 - ek package updated to v8
 
