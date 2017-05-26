@@ -93,7 +93,7 @@ rm -rf %{buildroot}
 
 %changelog
 * Thu May 25 2017 Anton Novojilov <andy@essentialkaos.com> - 0.3.0-0
-- ek package updated to v8
+- ek package updated to v9
 
 * Sat Apr 15 2017 Anton Novojilov <andy@essentialkaos.com> - 0.2.0-0
 - ek package updated to v8
