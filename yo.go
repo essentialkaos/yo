@@ -15,11 +15,11 @@ import (
 	"strconv"
 	"strings"
 
-	"pkg.re/essentialkaos/ek.v8/arg"
-	"pkg.re/essentialkaos/ek.v8/env"
-	"pkg.re/essentialkaos/ek.v8/fmtc"
-	"pkg.re/essentialkaos/ek.v8/fsutil"
-	"pkg.re/essentialkaos/ek.v8/usage"
+	"pkg.re/essentialkaos/ek.v9/env"
+	"pkg.re/essentialkaos/ek.v9/fmtc"
+	"pkg.re/essentialkaos/ek.v9/fsutil"
+	"pkg.re/essentialkaos/ek.v9/options"
+	"pkg.re/essentialkaos/ek.v9/usage"
 
 	"pkg.re/essentialkaos/go-simpleyaml.v1"
 )
@@ -28,15 +28,15 @@ import (
 
 const (
 	APP  = "Yo"
-	VER  = "0.2.0"
+	VER  = "0.3.0"
 	DESC = "Command-line YAML processor"
 )
 
 const (
-	ARG_FROM_FILE = "f:from-file"
-	ARG_NO_COLOR  = "nc:no-color"
-	ARG_HELP      = "h:help"
-	ARG_VER       = "v:version"
+	OPT_FROM_FILE = "f:from-file"
+	OPT_NO_COLOR  = "nc:no-color"
+	OPT_HELP      = "h:help"
+	OPT_VER       = "v:version"
 )
 
 // ////////////////////////////////////////////////////////////////////////////////// //
@@ -59,17 +59,17 @@ type Range struct {
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
-var argMap = arg.Map{
-	ARG_FROM_FILE: {Type: arg.STRING},
-	ARG_NO_COLOR:  {Type: arg.BOOL},
-	ARG_HELP:      {Type: arg.BOOL},
-	ARG_VER:       {Type: arg.BOOL},
+var optMap = options.Map{
+	OPT_FROM_FILE: {Type: options.STRING},
+	OPT_NO_COLOR:  {Type: options.BOOL},
+	OPT_HELP:      {Type: options.BOOL},
+	OPT_VER:       {Type: options.BOOL},
 }
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 func main() {
-	args, errs := arg.Parse(argMap)
+	args, errs := options.Parse(optMap)
 
 	if len(errs) != 0 {
 		for _, err := range errs {
@@ -81,17 +81,17 @@ func main() {
 
 	configureUI()
 
-	if arg.GetB(ARG_VER) {
+	if options.GetB(OPT_VER) {
 		showAbout()
 		os.Exit(1)
 	}
 
-	if arg.GetB(ARG_HELP) {
+	if options.GetB(OPT_HELP) {
 		showUsage()
 		os.Exit(1)
 	}
 
-	if len(args) == 0 && !arg.Has(ARG_FROM_FILE) {
+	if len(args) == 0 && !options.Has(OPT_FROM_FILE) {
 		showUsage()
 		os.Exit(1)
 	}
@@ -115,7 +115,7 @@ func configureUI() {
 		}
 	}
 
-	if arg.GetB(ARG_NO_COLOR) {
+	if options.GetB(OPT_NO_COLOR) {
 		fmtc.DisableColors = true
 	}
 
@@ -126,8 +126,8 @@ func configureUI() {
 
 // readData reads data from standart input or file
 func readData() ([]byte, error) {
-	if arg.Has(ARG_FROM_FILE) {
-		return readFromFile(arg.GetS(ARG_FROM_FILE))
+	if options.Has(OPT_FROM_FILE) {
+		return readFromFile(options.GetS(OPT_FROM_FILE))
 	}
 
 	return readFromStdin()
@@ -536,13 +536,14 @@ func (t Token) IsArrayToken() bool {
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
+// showUsage print usage info
 func showUsage() {
 	info := usage.NewInfo("", "query")
 
-	info.AddOption(ARG_FROM_FILE, "Read data from file", "filename")
-	info.AddOption(ARG_NO_COLOR, "Disable colors in output")
-	info.AddOption(ARG_HELP, "Show this help message")
-	info.AddOption(ARG_VER, "Show version")
+	info.AddOption(OPT_FROM_FILE, "Read data from file", "filename")
+	info.AddOption(OPT_NO_COLOR, "Disable colors in output")
+	info.AddOption(OPT_HELP, "Show this help message")
+	info.AddOption(OPT_VER, "Show version")
 
 	info.AddExample("'.foo'", "Return value for key foo")
 	info.AddExample("'.foo | length'", "Print value length")
@@ -556,6 +557,7 @@ func showUsage() {
 	info.Render()
 }
 
+// showAbout print info about version
 func showAbout() {
 	about := &usage.About{
 		App:     APP,
