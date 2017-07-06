@@ -8,9 +8,9 @@
 * [Contributing](#contributing)
 * [License](#license)
 
-## Installation
+### Installation
 
-### From source
+#### From source
 
 Before the initial install allows git to use redirects for [pkg.re](https://github.com/essentialkaos/pkgre) service (reason why you should do this described [here](https://github.com/essentialkaos/pkgre#git-support)):
 
@@ -30,11 +30,25 @@ If you want update Yo to latest stable release, do:
 go get -u github.com/essentialkaos/yo
 ```
 
-### Prebuilt binaries
+#### From ESSENTIAL KAOS Public repo for RHEL6/CentOS6
+
+```bash
+[sudo] yum install -y https://yum.kaos.io/6/release/x86_64/kaos-repo-8.0-0.el6.noarch.rpm
+[sudo] yum install yo
+```
+
+#### From ESSENTIAL KAOS Public repo for RHEL7/CentOS7
+
+```bash
+[sudo] yum install -y https://yum.kaos.io/7/release/x86_64/kaos-repo-8.0-0.el7.noarch.rpm
+[sudo] yum install yo
+```
+
+#### Prebuilt binaries
 
 You can download prebuilt binaries for Linux and OS X from [EK Apps Repository](https://apps.kaos.io/yo/latest).
 
-## Usage
+### Usage
 
 ```
 Usage: yo {options} query
@@ -74,17 +88,19 @@ Examples
 
 ```
 
-## Build Status
+### Build Status
 
 | Branch | Status |
-|------------|--------|
+|--------|--------|
 | `master` | [![Build Status](https://travis-ci.org/essentialkaos/yo.svg?branch=master)](https://travis-ci.org/essentialkaos/yo) |
 | `develop` | [![Build Status](https://travis-ci.org/essentialkaos/yo.svg?branch=develop)](https://travis-ci.org/essentialkaos/yo) |
 
-## Contributing
+### Contributing
 
 Before contributing to this project please read our [Contributing Guidelines](https://github.com/essentialkaos/contributing-guidelines#contributing-guidelines).
 
-## License
+### License
 
 [EKOL](https://essentialkaos.com/ekol)
+
+<p align="center"><a href="https://essentialkaos.com"><img src="https://gh.kaos.io/ekgh.svg"/></a></p>
