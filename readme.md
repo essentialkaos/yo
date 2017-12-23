@@ -1,4 +1,4 @@
-# Yo [![Build Status](https://travis-ci.org/essentialkaos/yo.svg?branch=master)](https://travis-ci.org/essentialkaos/yo) [![Go Report Card](https://goreportcard.com/badge/github.com/essentialkaos/yo)](https://goreportcard.com/report/github.com/essentialkaos/yo) [![License](https://gh.kaos.io/ekol.svg)](https://essentialkaos.com/ekol)
+# Yo [![Build Status](https://travis-ci.org/essentialkaos/yo.svg?branch=master)](https://travis-ci.org/essentialkaos/yo) [![Go Report Card](https://goreportcard.com/badge/github.com/essentialkaos/yo)](https://goreportcard.com/report/github.com/essentialkaos/yo) [![codebeat badge](https://codebeat.co/badges/f9f024b1-a3b2-418f-b3a4-b4f1d0d4c73d)](https://codebeat.co/projects/github-com-essentialkaos-yo-master) [![License](https://gh.kaos.io/ekol.svg)](https://essentialkaos.com/ekol)
 
 `yo` is command-line YAML processor.
 
