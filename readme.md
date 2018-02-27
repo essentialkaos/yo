@@ -1,4 +1,4 @@
-# Yo [![Build Status](https://travis-ci.org/essentialkaos/yo.svg?branch=master)](https://travis-ci.org/essentialkaos/yo) [![Go Report Card](https://goreportcard.com/badge/github.com/essentialkaos/yo)](https://goreportcard.com/report/github.com/essentialkaos/yo) [![codebeat badge](https://codebeat.co/badges/f9f024b1-a3b2-418f-b3a4-b4f1d0d4c73d)](https://codebeat.co/projects/github-com-essentialkaos-yo-master) [![License](https://gh.kaos.io/ekol.svg)](https://essentialkaos.com/ekol)
+# Yo [![Build Status](https://travis-ci.org/essentialkaos/yo.svg?branch=master)](https://travis-ci.org/essentialkaos/yo) [![Go Report Card](https://goreportcard.com/badge/github.com/essentialkaos/yo)](https://goreportcard.com/report/github.com/essentialkaos/yo) [![codebeat badge](https://codebeat.co/badges/f9f024b1-a3b2-418f-b3a4-b4f1d0d4c73d)](https://codebeat.co/projects/github-com-essentialkaos-yo-master) [![License](https://gh.kaos.st/ekol.svg)](https://essentialkaos.com/ekol)
 
 `yo` is command-line YAML processor.
 
@@ -12,7 +12,7 @@
 
 #### From source
 
-Before the initial install allows git to use redirects for [pkg.re](https://github.com/essentialkaos/pkgre) service (reason why you should do this described [here](https://github.com/essentialkaos/pkgre#git-support)):
+Before the initial install allows git to use redirects for [pkg.re](https://github.com/essentialkaos/pkgre) service (_reason why you should do this described [here](https://github.com/essentialkaos/pkgre#git-support)_):
 
 ```
 git config --global http.https://pkg.re.followRedirects true
@@ -33,20 +33,20 @@ go get -u github.com/essentialkaos/yo
 #### From ESSENTIAL KAOS Public repo for RHEL6/CentOS6
 
 ```bash
-[sudo] yum install -y https://yum.kaos.io/6/release/x86_64/kaos-repo-8.0-0.el6.noarch.rpm
+[sudo] yum install -y https://yum.kaos.st/6/release/x86_64/kaos-repo-9.1-0.el6.noarch.rpm
 [sudo] yum install yo
 ```
 
 #### From ESSENTIAL KAOS Public repo for RHEL7/CentOS7
 
 ```bash
-[sudo] yum install -y https://yum.kaos.io/7/release/x86_64/kaos-repo-8.0-0.el7.noarch.rpm
+[sudo] yum install -y https://yum.kaos.st/7/release/x86_64/kaos-repo-9.1-0.el7.noarch.rpm
 [sudo] yum install yo
 ```
 
 #### Prebuilt binaries
 
-You can download prebuilt binaries for Linux and OS X from [EK Apps Repository](https://apps.kaos.io/yo/latest).
+You can download prebuilt binaries for Linux and OS X from [EK Apps Repository](https://apps.kaos.st/yo/latest).
 
 ### Usage
 
@@ -103,4 +103,4 @@ Before contributing to this project please read our [Contributing Guidelines](ht
 
 [EKOL](https://essentialkaos.com/ekol)
 
-<p align="center"><a href="https://essentialkaos.com"><img src="https://gh.kaos.io/ekgh.svg"/></a></p>
+<p align="center"><a href="https://essentialkaos.com"><img src="https://gh.kaos.st/ekgh.svg"/></a></p>
