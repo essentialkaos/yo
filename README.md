@@ -1,12 +1,15 @@
-# Yo [![Build Status](https://travis-ci.org/essentialkaos/yo.svg?branch=master)](https://travis-ci.org/essentialkaos/yo) [![Go Report Card](https://goreportcard.com/badge/github.com/essentialkaos/yo)](https://goreportcard.com/report/github.com/essentialkaos/yo) [![codebeat badge](https://codebeat.co/badges/f9f024b1-a3b2-418f-b3a4-b4f1d0d4c73d)](https://codebeat.co/projects/github-com-essentialkaos-yo-master) [![License](https://gh.kaos.st/ekol.svg)](https://essentialkaos.com/ekol)
+<p align="center"><a href="#readme"><img src="https://gh.kaos.st/yo.svg"/></a></p>
 
-`yo` is command-line YAML processor.
+<p align="center"><a href="#installation">Installation</a> • <a href="#usage">Usage</a> • <a href="#build-status">Build Status</a> • <a href="#contributing">Contributing</a> • <a href="#license">License</a></p>
 
-* [Installation](#installation)
-* [Usage](#usage)
-* [Build Status](#build-status)
-* [Contributing](#contributing)
-* [License](#license)
+<p align="center">
+  <a href="https://travis-ci.org/essentialkaos/yo"><img src="https://travis-ci.org/essentialkaos/yo.svg"></a>
+  <a href="https://goreportcard.com/report/github.com/essentialkaos/yo"><img src="https://goreportcard.com/badge/github.com/essentialkaos/yo"></a>
+  <a href="https://codebeat.co/projects/github-com-essentialkaos-yo-master"><img alt="codebeat badge" src="https://codebeat.co/badges/f9f024b1-a3b2-418f-b3a4-b4f1d0d4c73d" /></a>
+  <a href="https://essentialkaos.com/ekol"><img src="https://gh.kaos.st/ekol.svg"></a>
+</p>
+
+Yo is a command-line YAML processor.
 
 ### Installation
 
@@ -18,7 +21,7 @@ Before the initial install allows git to use redirects for [pkg.re](https://gith
 git config --global http.https://pkg.re.followRedirects true
 ```
 
-To build the Yo from scratch, make sure you have a working Go 1.5+ workspace ([instructions](https://golang.org/doc/install)), then:
+To build the Yo from scratch, make sure you have a working Go 1.8+ workspace (_[instructions](https://golang.org/doc/install)_), then:
 
 ```
 go get github.com/essentialkaos/yo
