@@ -9,7 +9,7 @@
   <a href="https://essentialkaos.com/ekol"><img src="https://gh.kaos.st/ekol.svg"></a>
 </p>
 
-`yo` is command-line YAML processor.
+Yo is a command-line YAML processor.
 
 ### Installation
 
