@@ -44,7 +44,7 @@
 
 Summary:         Command-line YAML processor
 Name:            yo
-Version:         0.3.1
+Version:         0.3.2
 Release:         0%{?dist}
 Group:           Applications/System
 License:         EKOL
@@ -92,6 +92,9 @@ rm -rf %{buildroot}
 ################################################################################
 
 %changelog
+* Wed Oct 17 2018 Anton Novojilov <andy@essentialkaos.com> - 0.3.2-0
+- go-simpleyaml updated to v2
+
 * Tue Mar 27 2018 Anton Novojilov <andy@essentialkaos.com> - 0.3.1-0
 - ek package updated to latest stable release
 
