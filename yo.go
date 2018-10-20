@@ -21,14 +21,14 @@ import (
 	"pkg.re/essentialkaos/ek.v9/options"
 	"pkg.re/essentialkaos/ek.v9/usage"
 
-	"pkg.re/essentialkaos/go-simpleyaml.v1"
+	"pkg.re/essentialkaos/go-simpleyaml.v2"
 )
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 const (
 	APP  = "Yo"
-	VER  = "0.3.1"
+	VER  = "0.3.2"
 	DESC = "Command-line YAML processor"
 )
 
@@ -198,11 +198,11 @@ func execArrayTokenSelector(t Token, data []*simpleyaml.Yaml) []*simpleyaml.Yaml
 			for _, index := range t.Index {
 				if t.Key == "" {
 					if item.IsIndexExist(index) {
-						result = append(result, item.GetIndex(index))
+						result = append(result, item.GetByIndex(index))
 					}
 				} else {
 					if item.Get(t.Key).IsIndexExist(index) {
-						result = append(result, item.Get(t.Key).GetIndex(index))
+						result = append(result, item.Get(t.Key).GetByIndex(index))
 					}
 				}
 			}
@@ -221,13 +221,13 @@ func execArrayTokenSelector(t Token, data []*simpleyaml.Yaml) []*simpleyaml.Yaml
 			for index := t.Range.Start; index < t.Range.End; index++ {
 				if t.Key == "" {
 					if item.IsIndexExist(index) {
-						result = append(result, item.GetIndex(index))
+						result = append(result, item.GetByIndex(index))
 					} else {
 						break RANGELOOP
 					}
 				} else {
 					if item.Get(t.Key).IsIndexExist(index) {
-						result = append(result, item.Get(t.Key).GetIndex(index))
+						result = append(result, item.Get(t.Key).GetByIndex(index))
 					} else {
 						break RANGELOOP
 					}
@@ -257,7 +257,7 @@ func renderData(data []*simpleyaml.Yaml) {
 	for _, item := range data {
 		switch {
 		case item.IsArray():
-			if item.GetIndex(0).IsMap() || item.GetIndex(0).IsArray() {
+			if item.GetByIndex(0).IsMap() || item.GetByIndex(0).IsArray() {
 				encodeYaml(item)
 			} else {
 				fmt.Println(strings.Join(item.MustStringArray(nil), "\n"))
@@ -312,7 +312,7 @@ func processorFuncLength(data []*simpleyaml.Yaml, k interface{}) []int {
 		for _, item := range data {
 			switch {
 			case item.IsArray():
-				result = append(result, item.ArraySize())
+				result = append(result, len(item.MustArray(nil)))
 			case item.IsMap():
 				result = append(result, len(item.MustMap(nil)))
 			default:
