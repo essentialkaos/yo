@@ -33,7 +33,11 @@ before_install:
   - chmod +x perfecto-docker
   - make deps
 
-script:
-  - make all
-  - .travis/script.sh
-  - ./perfecto-docker common/yo.spec
+jobs:  
+  include:
+    - stage: "Build Test"
+      script: make all
+    - stage: "Unit Tests"
+      script: .travis/script.sh
+    - stage: "Perfecto Lint"
+      script: ./perfecto-docker common/yo.spec
