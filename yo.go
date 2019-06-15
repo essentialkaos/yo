@@ -2,7 +2,7 @@ package main
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 //                                                                                    //
-//                     Copyright (c) 2009-2018 ESSENTIAL KAOS                         //
+//                     Copyright (c) 2009-2019 ESSENTIAL KAOS                         //
 //        Essential Kaos Open Source License <https://essentialkaos.com/ekol>         //
 //                                                                                    //
 // ////////////////////////////////////////////////////////////////////////////////// //
@@ -15,11 +15,11 @@ import (
 	"strconv"
 	"strings"
 
-	"pkg.re/essentialkaos/ek.v9/env"
-	"pkg.re/essentialkaos/ek.v9/fmtc"
-	"pkg.re/essentialkaos/ek.v9/fsutil"
-	"pkg.re/essentialkaos/ek.v9/options"
-	"pkg.re/essentialkaos/ek.v9/usage"
+	"pkg.re/essentialkaos/ek.v10/env"
+	"pkg.re/essentialkaos/ek.v10/fmtc"
+	"pkg.re/essentialkaos/ek.v10/fsutil"
+	"pkg.re/essentialkaos/ek.v10/options"
+	"pkg.re/essentialkaos/ek.v10/usage"
 
 	"pkg.re/essentialkaos/go-simpleyaml.v2"
 )
@@ -28,7 +28,7 @@ import (
 
 const (
 	APP  = "Yo"
-	VER  = "0.3.2"
+	VER  = "0.4.0"
 	DESC = "Command-line YAML processor"
 )
 
@@ -99,7 +99,7 @@ func main() {
 	process(strings.Join(args, " "))
 }
 
-// configureUI configure user interface
+// configureUI configures user interface
 func configureUI() {
 	envVars := env.Get()
 	term := envVars.GetS("TERM")
@@ -133,12 +133,12 @@ func readData() ([]byte, error) {
 	return readFromStdin()
 }
 
-// readFromFile read data from file
+// readFromFile reads data from file
 func readFromFile(file string) ([]byte, error) {
 	return ioutil.ReadFile(file)
 }
 
-// readFromStdin read data from standart input
+// readFromStdin reads data from standart input
 func readFromStdin() ([]byte, error) {
 	return ioutil.ReadFile("/dev/stdin")
 }
@@ -162,7 +162,7 @@ func process(query string) {
 	execQuery(yaml, query)
 }
 
-// execQuery execute query over YAML
+// execQuery executes query over YAML
 func execQuery(yaml *simpleyaml.Yaml, query string) {
 	var data []*simpleyaml.Yaml
 
@@ -189,7 +189,7 @@ func execQuery(yaml *simpleyaml.Yaml, query string) {
 	}
 }
 
-// execArrayTokenSelector execute array query token over given data
+// execArrayTokenSelector executes array query token over given data
 func execArrayTokenSelector(t Token, data []*simpleyaml.Yaml) []*simpleyaml.Yaml {
 	var result []*simpleyaml.Yaml
 
@@ -239,7 +239,7 @@ func execArrayTokenSelector(t Token, data []*simpleyaml.Yaml) []*simpleyaml.Yaml
 	return result
 }
 
-// execBasicTokenSelector execute basic query token over given data
+// execBasicTokenSelector executes basic query token over given data
 func execBasicTokenSelector(t Token, data []*simpleyaml.Yaml) []*simpleyaml.Yaml {
 	var result []*simpleyaml.Yaml
 
@@ -252,7 +252,7 @@ func execBasicTokenSelector(t Token, data []*simpleyaml.Yaml) []*simpleyaml.Yaml
 	return result
 }
 
-// renderData render yaml structs to string
+// renderData renders yaml structs to string
 func renderData(data []*simpleyaml.Yaml) {
 	for _, item := range data {
 		switch {
@@ -272,7 +272,7 @@ func renderData(data []*simpleyaml.Yaml) {
 	}
 }
 
-// processData run processors over given data
+// processData runs processors over given data
 func processData(processor []string, data []*simpleyaml.Yaml) {
 	var result interface{}
 
@@ -304,7 +304,7 @@ func processData(processor []string, data []*simpleyaml.Yaml) {
 	}
 }
 
-// processorFuncLength is length processor
+// processorFuncLength is a length processor
 func processorFuncLength(data []*simpleyaml.Yaml, k interface{}) []int {
 	var result []int
 
@@ -331,7 +331,7 @@ func processorFuncLength(data []*simpleyaml.Yaml, k interface{}) []int {
 	return result
 }
 
-// processorFuncKeys is keys processor
+// processorFuncKeys is a keys processor
 func processorFuncKeys(data []*simpleyaml.Yaml, k interface{}) []string {
 	var result []string
 
@@ -349,7 +349,7 @@ func processorFuncKeys(data []*simpleyaml.Yaml, k interface{}) []string {
 	return result
 }
 
-// processorFuncKeys is sort processor
+// processorFuncKeys is a sort processor
 func processorFuncSort(k interface{}) []string {
 	var result []string
 
@@ -364,7 +364,7 @@ func processorFuncSort(k interface{}) []string {
 	return result
 }
 
-// parseQuery parse query
+// parseQuery parses query
 func parseQuery(query string) []Query {
 	var result []Query
 
@@ -375,7 +375,7 @@ func parseQuery(query string) []Query {
 	return result
 }
 
-// parseSubQuery parse sub-query
+// parseSubQuery parses sub-query
 func parseSubQuery(query string) Query {
 	query = strings.TrimSpace(query)
 
@@ -392,7 +392,7 @@ func parseSubQuery(query string) Query {
 	return Query{Tokens: parseTokens(qs[0]), Processors: parseProcessors(qs[1:])}
 }
 
-// parseTokens split query to tokens
+// parseTokens splits query to tokens
 func parseTokens(query string) []Token {
 	query = strings.TrimSpace(query)
 
@@ -409,7 +409,7 @@ func parseTokens(query string) []Token {
 	return result
 }
 
-// parseToken parse token
+// parseToken parses token
 func parseToken(token string) Token {
 	if strings.Contains(token, "[") && strings.Contains(token, "]") {
 		is := strings.Index(token, "[")
@@ -419,7 +419,7 @@ func parseToken(token string) Token {
 	return Token{Key: token, Range: Range{-1, -1}}
 }
 
-// parseArrayToken parse array token
+// parseArrayToken parses array token
 func parseArrayToken(key, index string) Token {
 	if index == "[]" {
 		return Token{Key: key, Range: Range{0, 999999999}}
@@ -445,7 +445,7 @@ func parseArrayToken(key, index string) Token {
 	}
 }
 
-// parseProcessors parse processors
+// parseProcessors parses processors
 func parseProcessors(processors []string) []string {
 	var result []string
 
@@ -456,7 +456,7 @@ func parseProcessors(processors []string) []string {
 	return result
 }
 
-// splitQuery split query
+// splitQuery splits query
 func splitQuery(query string) []string {
 	var result []string
 	var buffer string
@@ -486,7 +486,7 @@ func splitQuery(query string) []string {
 	return result
 }
 
-// converEnum convert string slice to int slice
+// converEnum converts string slice to int slice
 func converEnum(s []string) []int {
 	var result []int
 
@@ -497,7 +497,7 @@ func converEnum(s []string) []int {
 	return result
 }
 
-// str2int convert string to int
+// str2int converts string to int
 func str2int(s string, def int) int {
 	s = strings.TrimSpace(s)
 
@@ -510,7 +510,7 @@ func str2int(s string, def int) int {
 	return i
 }
 
-// encodeYaml encode yaml struct to string
+// encodeYaml encodes yaml struct to string
 func encodeYaml(yaml *simpleyaml.Yaml) {
 	data, _ := yaml.MarshalYAML()
 
@@ -525,7 +525,7 @@ func printError(f string, a ...interface{}) {
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
-// IsArrayToken return true if it array selector token
+// IsArrayToken returns true if it array selector token
 func (t Token) IsArrayToken() bool {
 	if len(t.Index) != 0 || t.Range.Start != -1 || t.Range.End != -1 {
 		return true
@@ -536,7 +536,7 @@ func (t Token) IsArrayToken() bool {
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
-// showUsage print usage info
+// showUsage prints usage info
 func showUsage() {
 	info := usage.NewInfo("", "query")
 
@@ -557,7 +557,7 @@ func showUsage() {
 	info.Render()
 }
 
-// showAbout print info about version
+// showAbout prints info about version
 func showAbout() {
 	about := &usage.About{
 		App:     APP,
