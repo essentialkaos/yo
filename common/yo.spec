@@ -44,7 +44,7 @@
 
 Summary:         Command-line YAML processor
 Name:            yo
-Version:         0.4.0
+Version:         0.5.0
 Release:         0%{?dist}
 Group:           Applications/System
 License:         EKOL
@@ -54,7 +54,7 @@ Source0:         https://source.kaos.st/%{name}/%{name}-%{version}.tar.bz2
 
 BuildRoot:       %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:   golang >= 1.12
+BuildRequires:   golang >= 1.13
 
 Provides:        %{name} = %{version}-%{release}
 
@@ -76,7 +76,6 @@ go build src/github.com/essentialkaos/%{name}/%{name}.go
 rm -rf %{buildroot}
 
 install -dm 755 %{buildroot}%{_bindir}
-
 install -pm 755 %{name} %{buildroot}%{_bindir}/
 
 %clean
@@ -92,6 +91,9 @@ rm -rf %{buildroot}
 ################################################################################
 
 %changelog
+* Fri Jan 10 2020 Anton Novojilov <andy@essentialkaos.com> - 0.5.0-0
+- ek package updated to the latest stable version
+
 * Sat Jun 15 2019 Anton Novojilov <andy@essentialkaos.com> - 0.4.0-0
 - ek package updated to the latest stable version
 
