@@ -17,7 +17,7 @@ FROM alpine:3.10
 LABEL name="Yo Image" \
       vendor="ESSENTIAL KAOS" \
       maintainer="Anton Novojilov" \
-      license="EKOL" \
+      license="Apache-2.0" \
       version="2020.06.13"
 
 COPY --from=builder /go/src/github.com/essentialkaos/yo/yo /usr/bin/
