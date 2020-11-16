@@ -48,7 +48,7 @@ jobs:
 
       - name: Run tests
         working-directory: ${{env.SRC_DIR}}
-        run: ${{ github.workspace }}/.scripts/script.sh
+        run: .scripts/script.sh
 
   Hadolint:
     name: Hadolint
