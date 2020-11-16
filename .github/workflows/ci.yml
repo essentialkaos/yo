@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [master]
   schedule:
-    - cron: '0 12 */10 * *'
+    - cron: '0 12 */15 * *'
 
 jobs:
   Ubuntu:
