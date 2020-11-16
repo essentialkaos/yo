@@ -28,7 +28,7 @@ CL_DARK="\e[${DARK}m"
 
 ################################################################################
 
-TEST_DATA="$GITHUB_WORKSPACE/.scripts/data.yaml"
+TEST_DATA=".scripts/data.yaml"
 BINARY="$GOPATH/src/github.com/essentialkaos/yo/yo"
 
 ################################################################################
