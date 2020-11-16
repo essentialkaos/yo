@@ -1,7 +1,7 @@
 <p align="center"><a href="#readme"><img src="https://gh.kaos.st/yo.svg"/></a></p>
 
 <p align="center">
-  <a href="https://travis-ci.com/essentialkaos/yo"><img src="https://travis-ci.com/essentialkaos/yo.svg"></a>
+  <a href="https://github.com/essentialkaos/yo/actions"><img src="https://github.com/essentialkaos/yo/workflows/CI/badge.svg" alt="GitHub Actions Status" /></a>
   <a href="https://github.com/essentialkaos/yo/actions?query=workflow%3ACodeQL"><img src="https://github.com/essentialkaos/yo/workflows/CodeQL/badge.svg" /></a>
   <a href="https://goreportcard.com/report/github.com/essentialkaos/yo"><img src="https://goreportcard.com/badge/github.com/essentialkaos/yo"></a>
   <a href="https://codebeat.co/projects/github-com-essentialkaos-yo-master"><img alt="codebeat badge" src="https://codebeat.co/badges/f9f024b1-a3b2-418f-b3a4-b4f1d0d4c73d" /></a>
@@ -91,8 +91,8 @@ Examples
 
 | Branch | Status |
 |--------|--------|
-| `master` | [![Build Status](https://travis-ci.com/essentialkaos/yo.svg?branch=master)](https://travis-ci.com/essentialkaos/yo) |
-| `develop` | [![Build Status](https://travis-ci.com/essentialkaos/yo.svg?branch=develop)](https://travis-ci.com/essentialkaos/yo) |
+| `master` | [![CI](https://github.com/essentialkaos/yo/workflows/CI/badge.svg?branch=master)](https://github.com/essentialkaos/yo/actions) |
+| `develop` | [![CI](https://github.com/essentialkaos/yo/workflows/CI/badge.svg?branch=develop)](https://github.com/essentialkaos/yo/actions) |
 
 ### Contributing
 
