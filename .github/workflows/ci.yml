@@ -50,6 +50,27 @@ jobs:
         working-directory: ${{env.SRC_DIR}}
         run: .scripts/script.sh
 
+  Perfecto:
+    name: Perfecto
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v2
+
+      - name: Run Perfecto docker image
+        uses: docker://essentialkaos/perfecto:slim
+        with:
+          args: --version
+
+      - name: Install perfecto-docker
+        run: |
+          wget https://kaos.sh/perfecto/perfecto-docker
+          chmod +x perfecto-docker
+
+      - name: Run Perfecto check
+        run: ./perfecto-docker common/yo.spec
+
   Hadolint:
     name: Hadolint
     runs-on: ubuntu-latest
