@@ -6,9 +6,10 @@ WORKDIR /go/src/github.com/essentialkaos/yo
 
 COPY . .
 
-RUN apk add --no-cache git=~2.26 make=4.3-r0 && \
+RUN apk add --no-cache git=~2.26 make=4.3-r0 upx=3.96-r0 && \
     make deps && \
-    make all
+    make all && \
+    upx yo
 
 ## FINAL IMAGE #################################################################
 
@@ -18,7 +19,7 @@ LABEL name="Yo Image" \
       vendor="ESSENTIAL KAOS" \
       maintainer="Anton Novojilov" \
       license="Apache-2.0" \
-      version="2020.06.13"
+      version="2020.11.17"
 
 COPY --from=builder /go/src/github.com/essentialkaos/yo/yo /usr/bin/
 
