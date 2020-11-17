@@ -69,6 +69,8 @@ jobs:
           chmod +x perfecto-docker
 
       - name: Run Perfecto check
+        env:
+          IMAGE: essentialkaos/perfecto:slim
         run: ./perfecto-docker common/yo.spec
 
   Hadolint:
