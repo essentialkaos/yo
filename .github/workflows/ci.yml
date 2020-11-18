@@ -9,8 +9,8 @@ on:
     - cron: '0 12 */15 * *'
 
 jobs:
-  Ubuntu:
-    name: Linux
+  Go:
+    name: Go
     runs-on: ubuntu-latest
 
     env:
@@ -54,6 +54,8 @@ jobs:
     name: Perfecto
     runs-on: ubuntu-latest
 
+    needs: Go
+
     steps:
       - name: Code checkout
         uses: actions/checkout@v2
@@ -82,6 +84,8 @@ jobs:
   Hadolint:
     name: Hadolint
     runs-on: ubuntu-latest
+
+    needs: Go
 
     env:
       HADOLINT_VERSION: 1.18.2
