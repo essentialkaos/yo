@@ -44,11 +44,11 @@
 
 Summary:         Command-line YAML processor
 Name:            yo
-Version:         0.5.0
+Version:         0.5.1
 Release:         0%{?dist}
 Group:           Applications/System
 License:         Apache License, Version 2.0
-URL:             https://github.com/essentialkaos/yo
+URL:             https://kaos.sh/yo
 
 Source0:         https://source.kaos.st/%{name}/%{name}-%{version}.tar.bz2
 
@@ -91,6 +91,9 @@ rm -rf %{buildroot}
 ################################################################################
 
 %changelog
+* Fri Dec 04 2020 Anton Novojilov <andy@essentialkaos.com> - 0.5.1-0
+- ek package updated to the latest stable version
+
 * Fri Jan 10 2020 Anton Novojilov <andy@essentialkaos.com> - 0.5.0-0
 - ek package updated to the latest stable version
 
