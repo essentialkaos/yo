@@ -20,6 +20,11 @@ import (
 	"pkg.re/essentialkaos/ek.v12/fsutil"
 	"pkg.re/essentialkaos/ek.v12/options"
 	"pkg.re/essentialkaos/ek.v12/usage"
+	"pkg.re/essentialkaos/ek.v12/usage/completion/bash"
+	"pkg.re/essentialkaos/ek.v12/usage/completion/fish"
+	"pkg.re/essentialkaos/ek.v12/usage/completion/zsh"
+	"pkg.re/essentialkaos/ek.v12/usage/man"
+	"pkg.re/essentialkaos/ek.v12/usage/update"
 
 	"pkg.re/essentialkaos/go-simpleyaml.v2"
 )
@@ -37,6 +42,9 @@ const (
 	OPT_NO_COLOR  = "nc:no-color"
 	OPT_HELP      = "h:help"
 	OPT_VER       = "v:version"
+
+	OPT_COMPLETION   = "completion"
+	OPT_GENERATE_MAN = "generate-man"
 )
 
 // ////////////////////////////////////////////////////////////////////////////////// //
@@ -64,6 +72,9 @@ var optMap = options.Map{
 	OPT_NO_COLOR:  {Type: options.BOOL},
 	OPT_HELP:      {Type: options.BOOL},
 	OPT_VER:       {Type: options.BOOL},
+
+	OPT_COMPLETION:   {},
+	OPT_GENERATE_MAN: {Type: options.BOOL},
 }
 
 // ////////////////////////////////////////////////////////////////////////////////// //
@@ -77,6 +88,14 @@ func main() {
 		}
 
 		os.Exit(1)
+	}
+
+	if options.Has(OPT_COMPLETION) {
+		os.Exit(genCompletion())
+	}
+
+	if options.Has(OPT_GENERATE_MAN) {
+		os.Exit(genMan())
 	}
 
 	configureUI()
@@ -538,6 +557,46 @@ func (t Token) IsArrayToken() bool {
 
 // showUsage prints usage info
 func showUsage() {
+	genUsage().Render()
+}
+
+// showAbout prints info about version
+func showAbout() {
+	genAbout().Render()
+}
+
+// genCompletion generates completion for different shells
+func genCompletion() int {
+	info := genUsage()
+
+	switch options.GetS(OPT_COMPLETION) {
+	case "bash":
+		fmt.Printf(bash.Generate(info, "yo"))
+	case "fish":
+		fmt.Printf(fish.Generate(info, "yo"))
+	case "zsh":
+		fmt.Printf(zsh.Generate(info, optMap, "yo"))
+	default:
+		return 1
+	}
+
+	return 0
+}
+
+// genMan generates man page
+func genMan() int {
+	fmt.Println(
+		man.Generate(
+			genUsage(),
+			genAbout(),
+		),
+	)
+
+	return 0
+}
+
+// genUsage generates usage info
+func genUsage() *usage.Info {
 	info := usage.NewInfo("", "query")
 
 	info.AddOption(OPT_FROM_FILE, "Read data from file", "filename")
@@ -554,19 +613,20 @@ func showUsage() {
 	info.AddExample("'.xyz | keys'", "Print hash map keys")
 	info.AddExample("'.xyz | keys | length'", "Print number of hash map keys")
 
-	info.Render()
+	return info
 }
 
-// showAbout prints info about version
-func showAbout() {
+// genAbout generates info about version
+func genAbout() *usage.About {
 	about := &usage.About{
-		App:     APP,
-		Version: VER,
-		Desc:    DESC,
-		Year:    2006,
-		Owner:   "ESSENTIAL KAOS",
-		License: "Apache License, Version 2.0 <https://www.apache.org/licenses/LICENSE-2.0>",
+		App:           APP,
+		Version:       VER,
+		Desc:          DESC,
+		Year:          2006,
+		Owner:         "ESSENTIAL KAOS",
+		License:       "Apache License, Version 2.0 <https://www.apache.org/licenses/LICENSE-2.0>",
+		UpdateChecker: usage.UpdateChecker{"essentialkaos/yo", update.GitHubChecker},
 	}
 
-	about.Render()
+	return about
 }
