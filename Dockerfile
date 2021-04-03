@@ -6,6 +6,8 @@ WORKDIR /go/src/github.com/essentialkaos/yo
 
 COPY . .
 
+ENV GO111MODULE=auto
+
 RUN apk add --no-cache git=~2.30 make=4.3-r0 upx=3.96-r0 && \
     make deps && \
     make all && \
