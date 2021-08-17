@@ -15,13 +15,13 @@ RUN apk add --no-cache git=~2.30 make=4.3-r0 upx=3.96-r1 && \
 
 ## FINAL IMAGE #################################################################
 
-FROM alpine:3.13
+FROM essentialkaos/alpine:3.13
 
 LABEL name="Yo Image" \
       vendor="ESSENTIAL KAOS" \
       maintainer="Anton Novojilov" \
       license="Apache-2.0" \
-      version="2021.05.01"
+      version="2021.08.17"
 
 COPY --from=builder /go/src/github.com/essentialkaos/yo/yo /usr/bin/
 
