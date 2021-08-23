@@ -86,7 +86,8 @@ jobs:
       - name: Check Golang sources with Aligo
         uses: essentialkaos/aligo-action@master
         with:
-          path: ${{env.SRC_DIR}}/...
+          path: ${{env.SRC_DIR}}
+          files: ./...
 
   Perfecto:
     name: Perfecto
