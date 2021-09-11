@@ -84,7 +84,7 @@ jobs:
         run: make deps
 
       - name: Check Golang sources with Aligo
-        uses: essentialkaos/aligo-action@master
+        uses: essentialkaos/aligo-action@v1
         with:
           path: ${{env.SRC_DIR}}
           files: ./...
@@ -141,6 +141,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build CentOS 7 image
+      - name: Build Docker image
         run: |
-          docker build -f Dockerfile -t alpine .
+          docker build -f Dockerfile -t yo .
