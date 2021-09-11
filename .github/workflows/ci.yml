@@ -51,37 +51,6 @@ jobs:
         working-directory: ${{env.SRC_DIR}}
         run: .scripts/script.sh
 
-  Perfecto:
-    name: Perfecto
-    runs-on: ubuntu-latest
-
-    needs: Go
-
-    steps:
-      - name: Code checkout
-        uses: actions/checkout@v2
-
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Run Perfecto docker image
-        uses: docker://essentialkaos/perfecto:micro
-        with:
-          args: --version
-
-      - name: Install perfecto-docker
-        run: |
-          wget https://kaos.sh/perfecto/perfecto-docker
-          chmod +x perfecto-docker
-
-      - name: Run Perfecto check
-        env:
-          IMAGE: essentialkaos/perfecto:micro
-        run: ./perfecto-docker common/yo.spec
-
   Aligo:
     name: Aligo
     runs-on: ubuntu-latest
@@ -114,19 +83,32 @@ jobs:
         working-directory: ${{env.SRC_DIR}}
         run: make deps
 
-      - name: Install Aligo
-        working-directory: ${{env.SRC_DIR}}
-        run: |
-          wget https://apps.kaos.st/aligo/latest/linux/x86_64/aligo
-          chmod +x aligo
+      - name: Check Golang sources with Aligo
+        uses: essentialkaos/aligo-action@v1
+        with:
+          path: ${{env.SRC_DIR}}
+          files: ./...
 
-      - name: Print Aligo version info
-        working-directory: ${{env.SRC_DIR}}
-        run: ./aligo --version
+  Perfecto:
+    name: Perfecto
+    runs-on: ubuntu-latest
 
-      - name: Check Go structs alignment info
-        working-directory: ${{env.SRC_DIR}}
-        run: ./aligo check ./...
+    needs: Go
+
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Check specs with Perfecto
+        uses: essentialkaos/perfecto-action@v1
+        with:
+          files: common/yo.spec
 
   Hadolint:
     name: Hadolint
@@ -134,23 +116,14 @@ jobs:
 
     needs: Go
 
-    env:
-      HADOLINT_VERSION: 2.6.1
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Install Hadolint
-        run: |
-          wget -O hadolint https://github.com/hadolint/hadolint/releases/download/v${HADOLINT_VERSION}/hadolint-Linux-x86_64
-          chmod +x hadolint
-      
-      - name: Print Hadolint version info
-        run: ./hadolint --version
-
-      - name: Check Docker files
-        run: ./hadolint Dockerfile
+      - name: Check dockerfiles with Hadolint
+        uses: essentialkaos/hadolint-action@v1
+        with:
+          files: Dockerfile
 
   DockerBuild:
     name: Docker Build Check
@@ -168,6 +141,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build CentOS 7 image
+      - name: Build Docker image
         run: |
-          docker build -f Dockerfile -t alpine .
+          docker build -f Dockerfile -t yo .
