@@ -124,6 +124,11 @@ fi
 ################################################################################
 
 %changelog
+* Tue Mar 29 2022 Anton Novojilov <andy@essentialkaos.com> - 0.5.2-0
+- Removed pkg.re usage
+- Added module info
+- Added Dependabot configuration
+
 * Fri Dec 04 2020 Anton Novojilov <andy@essentialkaos.com> - 0.5.1-0
 - ek package updated to the latest stable version
 - Added completion generation
