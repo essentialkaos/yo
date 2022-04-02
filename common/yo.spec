@@ -44,7 +44,7 @@
 
 Summary:         Command-line YAML processor
 Name:            yo
-Version:         0.5.1
+Version:         0.5.2
 Release:         0%{?dist}
 Group:           Applications/System
 License:         Apache License, Version 2.0
@@ -54,7 +54,7 @@ Source0:         https://source.kaos.st/%{name}/%{name}-%{version}.tar.bz2
 
 BuildRoot:       %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:   golang >= 1.14
+BuildRequires:   golang >= 1.17
 
 Provides:        %{name} = %{version}-%{release}
 
@@ -70,7 +70,9 @@ Command-line YAML processor.
 
 %build
 export GOPATH=$(pwd)
-go build src/github.com/essentialkaos/%{name}/%{name}.go
+pushd src/github.com/essentialkaos/%{name}
+  go build -mod vendor -o $GOPATH/%{name} %{name}.go
+popd
 
 %install
 rm -rf %{buildroot}
@@ -124,6 +126,11 @@ fi
 ################################################################################
 
 %changelog
+* Tue Mar 29 2022 Anton Novojilov <andy@essentialkaos.com> - 0.5.2-0
+- Removed pkg.re usage
+- Added module info
+- Added Dependabot configuration
+
 * Fri Dec 04 2020 Anton Novojilov <andy@essentialkaos.com> - 0.5.1-0
 - ek package updated to the latest stable version
 - Added completion generation

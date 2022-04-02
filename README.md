@@ -18,7 +18,7 @@ Yo is a command-line YAML processor.
 
 #### From source
 
-To build the Yo from scratch, make sure you have a working Go 1.16+ workspace (_[instructions](https://golang.org/doc/install)_), then:
+To build the Yo from scratch, make sure you have a working Go 1.17+ workspace (_[instructions](https://golang.org/doc/install)_), then:
 
 ```
 go get github.com/essentialkaos/yo

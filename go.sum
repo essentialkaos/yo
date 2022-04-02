@@ -1,0 +1,14 @@
+github.com/essentialkaos/check v1.2.1 h1:avvyFy/1acUNwfxwuOLsHeCjfXtMygtbu0lVDr3nxFs=
+github.com/essentialkaos/ek/v12 v12.42.1 h1:h3PPy0XNXUj1IsEid/p9IzaF0o5hZEGOBFh7XZawAyg=
+github.com/essentialkaos/ek/v12 v12.42.1/go.mod h1:Cv/tOZshmFg4pMJnBkg4aW/WyYhzzc41qzZIfk5RSi4=
+github.com/essentialkaos/go-simpleyaml/v2 v2.1.3 h1:DAFvXut4ZtkuiTKWqSux3W0myuv3TOAwiD6w5MKWxsM=
+github.com/essentialkaos/go-simpleyaml/v2 v2.1.3/go.mod h1:LAUFukPmTZ4fmHa1K3LsH8MO257r/CL/BqlaP/2Vgcs=
+github.com/kr/pretty v0.3.0 h1:WgNl7dwNpEZ6jJ9k1snq4pZsg7DOEN8hP9Xw0Tsjwk0=
+github.com/kr/text v0.2.0 h1:5Nx0Ya0ZqY2ygV366QzturHI13Jq95ApcVaJBhpS+AY=
+github.com/rogpeppe/go-internal v1.6.1 h1:/FiVV8dS/e+YqF2JvO3yXRFbBLTIuSDkuC7aBOAvL+k=
+golang.org/x/sys v0.0.0-20220319134239-a9b59b0215f8 h1:OH54vjqzRWmbJ62fjuhxy7AxFFgoHN0/DPc/UrL8cAs=
+golang.org/x/sys v0.0.0-20220319134239-a9b59b0215f8/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=
+gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
+gopkg.in/yaml.v2 v2.4.0 h1:D8xgwECY7CYvx+Y2n4sBz93Jn9JRvxdiyyo8CTfuKaY=
+gopkg.in/yaml.v2 v2.4.0/go.mod h1:RDklbk79AGWmwhnvt/jBztapEOGDOx6ZbXqjP6csGnQ=
