@@ -29,7 +29,7 @@ CL_DARK="\e[${DARK}m"
 ################################################################################
 
 TEST_DATA=".scripts/data.yaml"
-BINARY="$GOPATH/src/github.com/essentialkaos/yo/yo"
+BINARY="src/github.com/essentialkaos/yo/yo"
 
 ################################################################################
 
