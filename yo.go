@@ -33,7 +33,7 @@ import (
 
 const (
 	APP  = "Yo"
-	VER  = "0.5.2"
+	VER  = "0.5.3"
 	DESC = "Command-line YAML processor"
 )
 
@@ -115,7 +115,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	process(strings.Join(args, " "))
+	process(strings.Join(args.Strings(), " "))
 }
 
 // configureUI configures user interface
