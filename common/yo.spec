@@ -44,7 +44,7 @@
 
 Summary:         Command-line YAML processor
 Name:            yo
-Version:         0.5.2
+Version:         0.5.3
 Release:         0%{?dist}
 Group:           Applications/System
 License:         Apache License, Version 2.0
@@ -126,6 +126,9 @@ fi
 ################################################################################
 
 %changelog
+* Mon May 09 2022 Anton Novojilov <andy@essentialkaos.com> - 0.5.3-0
+- Updated for compatibility with the latest version of ek package
+
 * Tue Mar 29 2022 Anton Novojilov <andy@essentialkaos.com> - 0.5.2-0
 - Removed pkg.re usage
 - Added module info
