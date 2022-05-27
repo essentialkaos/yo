@@ -44,7 +44,7 @@
 
 Summary:         Command-line YAML processor
 Name:            yo
-Version:         0.5.3
+Version:         0.5.4
 Release:         0%{?dist}
 Group:           Applications/System
 License:         Apache License, Version 2.0
@@ -71,7 +71,7 @@ Command-line YAML processor.
 %build
 export GOPATH=$(pwd)
 pushd src/github.com/essentialkaos/%{name}
-  go build -mod vendor -o $GOPATH/%{name} %{name}.go
+  go build -o $GOPATH/%{name} %{name}.go
 popd
 
 %install
@@ -126,6 +126,9 @@ fi
 ################################################################################
 
 %changelog
+* Fri May 27 2022 Anton Novojilov <andy@essentialkaos.com> - 0.5.4-0
+- Updated for compatibility with the latest version of ek package
+
 * Mon May 09 2022 Anton Novojilov <andy@essentialkaos.com> - 0.5.3-0
 - Updated for compatibility with the latest version of ek package
 
