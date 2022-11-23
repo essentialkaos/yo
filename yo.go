@@ -33,7 +33,7 @@ import (
 
 const (
 	APP  = "Yo"
-	VER  = "0.5.4"
+	VER  = "0.5.5"
 	DESC = "Command-line YAML processor"
 )
 

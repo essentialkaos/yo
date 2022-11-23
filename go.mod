@@ -1,6 +1,6 @@
 module github.com/essentialkaos/yo
 
-go 1.17
+go 1.19
 
 require (
 	github.com/essentialkaos/ek/v12 v12.57.0

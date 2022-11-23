@@ -39,7 +39,11 @@ sudo yum install yo
 
 #### Prebuilt binaries
 
-You can download prebuilt binaries for Linux and macOS from [EK Apps Repository](https://apps.kaos.st/yo/latest).
+You can download prebuilt binaries for Linux and macOS from [EK Apps Repository](https://apps.kaos.st/yo/latest):
+
+```bash
+bash <(curl -fsSL https://apps.kaos.st/get) yo
+```
 
 ### Usage
 
