@@ -613,6 +613,7 @@ func genUsage() *usage.Info {
 	info.AddExample("-f file.yml '.bar[] | length'", "Print array size")
 	info.AddExample("-f file.yml '.xyz | keys'", "Print hash map keys")
 	info.AddExample("-f file.yml '.xyz | keys | length'", "Print number of hash map keys")
+	info.AddExample("-f file.yml '.xyz | keys | sort'", "Print sorted list of keys")
 
 	return info
 }

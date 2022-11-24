@@ -85,6 +85,9 @@ Examples
 
   yo -f file.yml '.xyz | keys | length'
   Print number of hash map keys
+
+  yo -f file.yml '.xyz | keys | sort'
+  Print sorted list of keys
 ```
 
 ### Build Status
