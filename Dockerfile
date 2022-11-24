@@ -16,7 +16,7 @@ RUN apk add --no-cache git make upx && \
 
 ## FINAL IMAGE #################################################################
 
-FROM essentialkaos/alpine:3.13
+FROM essentialkaos/alpine:3.15
 
 LABEL org.opencontainers.image.title="yo" \
       org.opencontainers.image.description="Command-line YAML processor" \
