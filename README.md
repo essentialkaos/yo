@@ -59,30 +59,32 @@ Options
 
 Examples
 
-  yo '.foo'
+  cat file.yml | yo '.foo'
   Return value for key foo
 
-  yo '.foo | length'
+  yo -f file.yml '.foo'
+  Return value for key foo
+
+  yo -f file.yml '.foo | length'
   Print value length
 
-  yo '.foo[]'
+  yo -f file.yml '.foo[]'
   Return all items from array
 
-  yo '.bar[2:]'
+  yo -f file.yml '.bar[2:]'
   Return subarray started from item with index 2
 
-  yo '.bar[1,2,5]'
+  yo -f file.yml '.bar[1,2,5]'
   Return items with index 1, 2 and 5 from array
 
-  yo '.bar[] | length'
+  yo -f file.yml '.bar[] | length'
   Print array size
 
-  yo '.xyz | keys'
+  yo -f file.yml '.xyz | keys'
   Print hash map keys
 
-  yo '.xyz | keys | length'
+  yo -f file.yml '.xyz | keys | length'
   Print number of hash map keys
-
 ```
 
 ### Build Status

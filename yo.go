@@ -604,14 +604,15 @@ func genUsage() *usage.Info {
 	info.AddOption(OPT_HELP, "Show this help message")
 	info.AddOption(OPT_VER, "Show version")
 
-	info.AddExample("'.foo'", "Return value for key foo")
-	info.AddExample("'.foo | length'", "Print value length")
-	info.AddExample("'.foo[]'", "Return all items from array")
-	info.AddExample("'.bar[2:]'", "Return subarray started from item with index 2")
-	info.AddExample("'.bar[1,2,5]'", "Return items with index 1, 2 and 5 from array")
-	info.AddExample("'.bar[] | length'", "Print array size")
-	info.AddExample("'.xyz | keys'", "Print hash map keys")
-	info.AddExample("'.xyz | keys | length'", "Print number of hash map keys")
+	info.AddRawExample("cat file.yml | yo '.foo'", "Return value for key foo")
+	info.AddExample("-f file.yml '.foo'", "Return value for key foo")
+	info.AddExample("-f file.yml '.foo | length'", "Print value length")
+	info.AddExample("-f file.yml '.foo[]'", "Return all items from array")
+	info.AddExample("-f file.yml '.bar[2:]'", "Return subarray started from item with index 2")
+	info.AddExample("-f file.yml '.bar[1,2,5]'", "Return items with index 1, 2 and 5 from array")
+	info.AddExample("-f file.yml '.bar[] | length'", "Print array size")
+	info.AddExample("-f file.yml '.xyz | keys'", "Print hash map keys")
+	info.AddExample("-f file.yml '.xyz | keys | length'", "Print number of hash map keys")
 
 	return info
 }
