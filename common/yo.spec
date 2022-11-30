@@ -69,9 +69,9 @@ Command-line YAML processor.
 %setup -q
 
 %build
-export GOPATH=$(pwd)
-pushd src/github.com/essentialkaos/%{name}
-  go build -o $GOPATH/%{name} %{name}.go
+pushd %{name}
+  go build %{name}.go
+  cp LICENSE ..
 popd
 
 %install
@@ -80,9 +80,9 @@ rm -rf %{buildroot}
 install -dm 755 %{buildroot}%{_bindir}
 install -dm 755 %{buildroot}%{_mandir}/man1
 
-install -pm 755 %{name} %{buildroot}%{_bindir}/
+install -pm 755 %{name}/%{name} %{buildroot}%{_bindir}/
 
-./%{name} --generate-man > %{buildroot}%{_mandir}/man1/%{name}.1
+./%{name}/%{name} --generate-man > %{buildroot}%{_mandir}/man1/%{name}.1
 
 %clean
 rm -rf %{buildroot}
@@ -127,6 +127,7 @@ fi
 
 %changelog
 * Wed Nov 23 2022 Anton Novojilov <andy@essentialkaos.com> - 0.5.5-0
+- Fixed build using sources from source.kaos.st
 - Dependencies update
 
 * Fri May 27 2022 Anton Novojilov <andy@essentialkaos.com> - 0.5.4-0
