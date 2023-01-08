@@ -1,9 +1,5 @@
 ################################################################################
 
-# rpmbuilder:relative-pack true
-
-################################################################################
-
 %define  debug_package %{nil}
 
 ################################################################################
@@ -69,6 +65,11 @@ Command-line YAML processor.
 %setup -q
 
 %build
+if [[ ! -d "%{name}/vendor" ]] ; then
+  echo "This package requires vendored dependencies"
+  exit 1
+fi
+
 pushd %{name}
   go build %{name}.go
   cp LICENSE ..
