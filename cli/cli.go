@@ -11,7 +11,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"runtime/debug"
 	"sort"
 	"strconv"
 	"strings"
@@ -98,8 +97,6 @@ func Init(gitRev string, gomod []byte) {
 	}
 
 	configureUI()
-
-	fmt.Println(debug.ReadBuildInfo())
 
 	switch {
 	case options.Has(OPT_COMPLETION):
