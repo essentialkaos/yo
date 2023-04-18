@@ -147,7 +147,7 @@ func configureUI() {
 	}
 }
 
-// readData reads data from standart input or file
+// readData reads data from standard input or file
 func readData() ([]byte, error) {
 	if options.Has(OPT_FROM_FILE) {
 		return readFromFile(options.GetS(OPT_FROM_FILE))
@@ -161,7 +161,7 @@ func readFromFile(file string) ([]byte, error) {
 	return ioutil.ReadFile(file)
 }
 
-// readFromStdin reads data from standart input
+// readFromStdin reads data from standard input
 func readFromStdin() ([]byte, error) {
 	return ioutil.ReadFile("/dev/stdin")
 }
@@ -462,7 +462,7 @@ func parseArrayToken(key, index string) Token {
 			},
 		}
 	} else if strings.Contains(index, ",") {
-		return Token{Key: key, Range: Range{-1, -1}, Index: converEnum(strings.Split(index, ","))}
+		return Token{Key: key, Range: Range{-1, -1}, Index: convertEnum(strings.Split(index, ","))}
 	} else {
 		return Token{Key: key, Range: Range{-1, -1}, Index: []int{str2int(index, 0)}}
 	}
@@ -509,8 +509,8 @@ func splitQuery(query string) []string {
 	return result
 }
 
-// converEnum converts string slice to int slice
-func converEnum(s []string) []int {
+// convertEnum converts string slice to int slice
+func convertEnum(s []string) []int {
 	var result []int
 
 	for _, i := range s {
