@@ -9,15 +9,14 @@ package cli
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"sort"
 	"strconv"
 	"strings"
 
 	"github.com/essentialkaos/ek/v12/fmtc"
-	"github.com/essentialkaos/ek/v12/fsutil"
 	"github.com/essentialkaos/ek/v12/options"
+	"github.com/essentialkaos/ek/v12/terminal/tty"
 	"github.com/essentialkaos/ek/v12/usage"
 	"github.com/essentialkaos/ek/v12/usage/completion/bash"
 	"github.com/essentialkaos/ek/v12/usage/completion/fish"
@@ -34,7 +33,7 @@ import (
 
 const (
 	APP  = "Yo"
-	VER  = "0.5.6"
+	VER  = "0.5.7"
 	DESC = "Command-line YAML processor"
 )
 
@@ -69,6 +68,7 @@ type Range struct {
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
+// optMap is map with options
 var optMap = options.Map{
 	OPT_FROM_FILE: {Type: options.STRING},
 	OPT_NO_COLOR:  {Type: options.BOOL},
@@ -80,9 +80,15 @@ var optMap = options.Map{
 	OPT_GENERATE_MAN: {Type: options.BOOL},
 }
 
+// colorTagApp contains color tag for app name
+var colorTagApp string
+
+// colorTagVer contains color tag for app version
+var colorTagVer string
+
 // ////////////////////////////////////////////////////////////////////////////////// //
 
-// Init is main application function
+// Run is main application function
 func Run(gitRev string, gomod []byte) {
 	preConfigureUI()
 
@@ -113,29 +119,12 @@ func Run(gitRev string, gomod []byte) {
 		os.Exit(0)
 	}
 
-	process(strings.Join(args.Strings(), " "))
+	process(args.Flatten())
 }
 
 // preConfigureUI preconfigures UI based on information about user terminal
 func preConfigureUI() {
-	term := os.Getenv("TERM")
-
-	fmtc.DisableColors = true
-
-	if term != "" {
-		switch {
-		case strings.Contains(term, "xterm"),
-			strings.Contains(term, "color"),
-			term == "screen":
-			fmtc.DisableColors = false
-		}
-	}
-
-	if !fsutil.IsCharacterDevice("/dev/stdout") && os.Getenv("FAKETTY") == "" {
-		fmtc.DisableColors = true
-	}
-
-	if os.Getenv("NO_COLOR") != "" {
+	if !tty.IsTTY() {
 		fmtc.DisableColors = true
 	}
 }
@@ -145,9 +134,16 @@ func configureUI() {
 	if options.GetB(OPT_NO_COLOR) {
 		fmtc.DisableColors = true
 	}
+
+	switch {
+	case fmtc.Is256ColorsSupported():
+		colorTagApp, colorTagVer = "{*}{#220}", "{#220}"
+	default:
+		colorTagApp, colorTagVer = "{*}{y}", "{y}"
+	}
 }
 
-// readData reads data from standart input or file
+// readData reads data from standard input or file
 func readData() ([]byte, error) {
 	if options.Has(OPT_FROM_FILE) {
 		return readFromFile(options.GetS(OPT_FROM_FILE))
@@ -158,12 +154,12 @@ func readData() ([]byte, error) {
 
 // readFromFile reads data from file
 func readFromFile(file string) ([]byte, error) {
-	return ioutil.ReadFile(file)
+	return os.ReadFile(file)
 }
 
-// readFromStdin reads data from standart input
+// readFromStdin reads data from standard input
 func readFromStdin() ([]byte, error) {
-	return ioutil.ReadFile("/dev/stdin")
+	return os.ReadFile("/dev/stdin")
 }
 
 // process start data processing
@@ -313,15 +309,15 @@ func processData(processor []string, data []*simpleyaml.Yaml) {
 		}
 	}
 
-	switch result.(type) {
+	switch t := result.(type) {
 	case string, int:
-		fmt.Println(result)
+		fmt.Println(t)
 	case []int:
-		for _, v := range result.([]int) {
+		for _, v := range t {
 			fmt.Println(v)
 		}
 	case []string:
-		for _, v := range result.([]string) {
+		for _, v := range t {
 			fmt.Println(v)
 		}
 	}
@@ -343,11 +339,11 @@ func processorFuncLength(data []*simpleyaml.Yaml, k interface{}) []int {
 			}
 		}
 	} else {
-		switch k.(type) {
+		switch t := k.(type) {
 		case string:
-			return []int{len(k.(string))}
+			return []int{len(t)}
 		case []string:
-			return []int{len(k.([]string))}
+			return []int{len(t)}
 		}
 	}
 
@@ -376,11 +372,11 @@ func processorFuncKeys(data []*simpleyaml.Yaml, k interface{}) []string {
 func processorFuncSort(k interface{}) []string {
 	var result []string
 
-	switch k.(type) {
+	switch t := k.(type) {
 	case string:
-		result = []string{k.(string)}
+		result = []string{t}
 	case []string:
-		result = k.([]string)
+		result = t
 		sort.Strings(result)
 	}
 
@@ -451,7 +447,8 @@ func parseArrayToken(key, index string) Token {
 	index = strings.TrimLeft(index, "[")
 	index = strings.TrimRight(index, "]")
 
-	if strings.Contains(index, ":") {
+	switch {
+	case strings.Contains(index, ":"):
 		is := strings.Split(index, ":")
 
 		return Token{
@@ -461,9 +458,11 @@ func parseArrayToken(key, index string) Token {
 				str2int(is[1], 999999999),
 			},
 		}
-	} else if strings.Contains(index, ",") {
-		return Token{Key: key, Range: Range{-1, -1}, Index: converEnum(strings.Split(index, ","))}
-	} else {
+
+	case strings.Contains(index, ","):
+		return Token{Key: key, Range: Range{-1, -1}, Index: convertEnum(strings.Split(index, ","))}
+
+	default:
 		return Token{Key: key, Range: Range{-1, -1}, Index: []int{str2int(index, 0)}}
 	}
 }
@@ -509,8 +508,8 @@ func splitQuery(query string) []string {
 	return result
 }
 
-// converEnum converts string slice to int slice
-func converEnum(s []string) []int {
+// convertEnum converts string slice to int slice
+func convertEnum(s []string) []int {
 	var result []int
 
 	for _, i := range s {
@@ -565,11 +564,11 @@ func printCompletion() int {
 
 	switch options.GetS(OPT_COMPLETION) {
 	case "bash":
-		fmt.Printf(bash.Generate(info, "yo"))
+		fmt.Print(bash.Generate(info, "yo"))
 	case "fish":
-		fmt.Printf(fish.Generate(info, "yo"))
+		fmt.Print(fish.Generate(info, "yo"))
 	case "zsh":
-		fmt.Printf(zsh.Generate(info, optMap, "yo"))
+		fmt.Print(zsh.Generate(info, optMap, "yo"))
 	default:
 		return 1
 	}
@@ -590,6 +589,8 @@ func printMan() {
 // genUsage generates usage info
 func genUsage() *usage.Info {
 	info := usage.NewInfo("", "query")
+
+	info.AppNameColorTag = colorTagApp
 
 	info.AddOption(OPT_FROM_FILE, "Read data from file", "filename")
 	info.AddOption(OPT_NO_COLOR, "Disable colors in output")
@@ -613,11 +614,16 @@ func genUsage() *usage.Info {
 // genAbout generates info about version
 func genAbout(gitRev string) *usage.About {
 	about := &usage.About{
-		App:           APP,
-		Version:       VER,
-		Desc:          DESC,
-		Year:          2006,
-		Owner:         "ESSENTIAL KAOS",
+		App:     APP,
+		Version: VER,
+		Desc:    DESC,
+		Year:    2006,
+		Owner:   "ESSENTIAL KAOS",
+
+		AppNameColorTag: colorTagApp,
+		VersionColorTag: colorTagVer,
+		DescSeparator:   "{s}—{!}",
+
 		License:       "Apache License, Version 2.0 <https://www.apache.org/licenses/LICENSE-2.0>",
 		UpdateChecker: usage.UpdateChecker{"essentialkaos/yo", update.GitHubChecker},
 	}
