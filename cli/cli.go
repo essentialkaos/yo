@@ -376,7 +376,8 @@ func processorFuncSort(k interface{}) []string {
 	case string:
 		result = []string{t}
 	case []string:
-		sort.Strings(t)
+		result = t
+		sort.Strings(result)
 	}
 
 	return result
