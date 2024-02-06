@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/essentialkaos/depsy v1.1.0
-	github.com/essentialkaos/ek/v12 v12.98.0
+	github.com/essentialkaos/ek/v12 v12.99.0
 	github.com/essentialkaos/go-simpleyaml/v2 v2.1.4
 )
 
