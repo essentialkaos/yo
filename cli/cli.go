@@ -16,6 +16,8 @@ import (
 
 	"github.com/essentialkaos/ek/v12/fmtc"
 	"github.com/essentialkaos/ek/v12/options"
+	"github.com/essentialkaos/ek/v12/support"
+	"github.com/essentialkaos/ek/v12/support/deps"
 	"github.com/essentialkaos/ek/v12/terminal/tty"
 	"github.com/essentialkaos/ek/v12/usage"
 	"github.com/essentialkaos/ek/v12/usage/completion/bash"
@@ -25,15 +27,13 @@ import (
 	"github.com/essentialkaos/ek/v12/usage/update"
 
 	"github.com/essentialkaos/go-simpleyaml/v2"
-
-	"github.com/essentialkaos/yo/cli/support"
 )
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 const (
 	APP  = "Yo"
-	VER  = "0.5.7"
+	VER  = "1.0.0"
 	DESC = "Command-line YAML processor"
 )
 
@@ -111,7 +111,8 @@ func Run(gitRev string, gomod []byte) {
 		genAbout(gitRev).Print()
 		os.Exit(0)
 	case options.GetB(OPT_VERB_VER):
-		support.Print(APP, VER, gitRev, gomod)
+		support.Collect(APP, VER).WithRevision(gitRev).
+			WithDeps(deps.Extract(gomod)).Print()
 		os.Exit(0)
 	case options.GetB(OPT_HELP),
 		len(args) == 0 && !options.Has(OPT_FROM_FILE):
