@@ -6,7 +6,7 @@
 
 Summary:        Command-line YAML processor
 Name:           yo
-Version:        0.5.7
+Version:        1.0.0
 Release:        0%{?dist}
 Group:          Applications/System
 License:        Apache License, Version 2.0
@@ -93,6 +93,11 @@ fi
 ################################################################################
 
 %changelog
+* Thu Mar 28 2024 Anton Novojilov <andy@essentialkaos.com> - 1.0.0-0
+- Improved support information gathering
+- Code refactoring
+- Dependencies update
+
 * Tue Dec 19 2023 Anton Novojilov <andy@essentialkaos.com> - 0.5.7-0
 - Code refactoring
 - Dependencies update
