@@ -111,8 +111,10 @@ func Run(gitRev string, gomod []byte) {
 		genAbout(gitRev).Print(options.GetS(OPT_VER))
 		os.Exit(0)
 	case options.GetB(OPT_VERB_VER):
-		support.Collect(APP, VER).WithRevision(gitRev).
-			WithDeps(deps.Extract(gomod)).Print()
+		support.Collect(APP, VER).
+			WithRevision(gitRev).
+			WithDeps(deps.Extract(gomod)).
+			Print()
 		os.Exit(0)
 	case options.GetB(OPT_HELP),
 		len(args) == 0 && !options.Has(OPT_FROM_FILE):
@@ -625,12 +627,12 @@ func genAbout(gitRev string) *usage.About {
 		VersionColorTag: colorTagVer,
 		DescSeparator:   "{s}—{!}",
 
-		License:       "Apache License, Version 2.0 <https://www.apache.org/licenses/LICENSE-2.0>",
-		UpdateChecker: usage.UpdateChecker{"essentialkaos/yo", update.GitHubChecker},
+		License: "Apache License, Version 2.0 <https://www.apache.org/licenses/LICENSE-2.0>",
 	}
 
 	if gitRev != "" {
 		about.Build = "git:" + gitRev
+		about.UpdateChecker = usage.UpdateChecker{"essentialkaos/yo", update.GitHubChecker}
 	}
 
 	return about
