@@ -41,48 +41,7 @@ bash <(curl -fsSL https://apps.kaos.st/get) yo
 
 ### Usage
 
-```
-Usage: yo {options} query
-
-Options
-
-  --from-file, -f filename    Read data from file
-  --no-color, -nc             Disable colors in output
-  --help, -h                  Show this help message
-  --version, -v               Show version
-
-Examples
-
-  cat file.yml | yo '.foo'
-  Return value for key foo
-
-  yo -f file.yml '.foo'
-  Return value for key foo
-
-  yo -f file.yml '.foo | length'
-  Print value length
-
-  yo -f file.yml '.foo[]'
-  Return all items from array
-
-  yo -f file.yml '.bar[2:]'
-  Return subarray started from item with index 2
-
-  yo -f file.yml '.bar[1,2,5]'
-  Return items with index 1, 2 and 5 from array
-
-  yo -f file.yml '.bar[] | length'
-  Print array size
-
-  yo -f file.yml '.xyz | keys'
-  Print hash map keys
-
-  yo -f file.yml '.xyz | keys | length'
-  Print number of hash map keys
-
-  yo -f file.yml '.xyz | keys | sort'
-  Print sorted list of keys
-```
+<img src=".github/images/usage.svg" />
 
 ### Build Status
 
