@@ -18,6 +18,7 @@ import (
 	"github.com/essentialkaos/ek/v12/options"
 	"github.com/essentialkaos/ek/v12/support"
 	"github.com/essentialkaos/ek/v12/support/deps"
+	"github.com/essentialkaos/ek/v12/terminal"
 	"github.com/essentialkaos/ek/v12/terminal/tty"
 	"github.com/essentialkaos/ek/v12/usage"
 	"github.com/essentialkaos/ek/v12/usage/completion/bash"
@@ -33,7 +34,7 @@ import (
 
 const (
 	APP  = "Yo"
-	VER  = "1.0.0"
+	VER  = "1.0.1"
 	DESC = "Command-line YAML processor"
 )
 
@@ -94,8 +95,9 @@ func Run(gitRev string, gomod []byte) {
 
 	args, errs := options.Parse(optMap)
 
-	if len(errs) != 0 {
-		printError(errs[0].Error())
+	if !errs.IsEmpty() {
+		terminal.Error("Options parsing errors:")
+		terminal.Error(errs.String())
 		os.Exit(1)
 	}
 
@@ -170,14 +172,14 @@ func process(query string) {
 	data, err := readData()
 
 	if err != nil {
-		printError(err.Error())
+		terminal.Error(err)
 		os.Exit(1)
 	}
 
 	yaml, err := simpleyaml.NewYaml(data)
 
 	if err != nil {
-		printError(err.Error())
+		terminal.Error(err)
 		os.Exit(1)
 	}
 
@@ -307,7 +309,7 @@ func processData(processor []string, data []*simpleyaml.Yaml) {
 		case "sort":
 			result = processorFuncSort(result)
 		default:
-			printError("Unknown function \"%s\"", pf)
+			terminal.Error("Unknown function \"%s\"", pf)
 			os.Exit(1)
 		}
 	}
@@ -543,11 +545,6 @@ func encodeYaml(yaml *simpleyaml.Yaml) {
 	fmt.Println(string(data[:len(data)-1]))
 }
 
-// printError prints error message to console
-func printError(f string, a ...interface{}) {
-	fmtc.Fprintf(os.Stderr, "{r}"+f+"{!}\n", a...)
-}
-
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 // IsArrayToken returns true if it array selector token
@@ -581,12 +578,7 @@ func printCompletion() int {
 
 // printMan prints man page
 func printMan() {
-	fmt.Println(
-		man.Generate(
-			genUsage(),
-			genAbout(""),
-		),
-	)
+	fmt.Println(man.Generate(genUsage(), genAbout("")))
 }
 
 // genUsage generates usage info
