@@ -3,7 +3,7 @@ module github.com/essentialkaos/yo
 go 1.23.6
 
 require (
-	github.com/essentialkaos/ek/v13 v13.20.3
+	github.com/essentialkaos/ek/v13 v13.20.4
 	github.com/essentialkaos/go-simpleyaml/v2 v2.1.5
 )
 
