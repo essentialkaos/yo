@@ -35,7 +35,7 @@ jobs:
       - name: Run test recipe with Bibop
         uses: essentialkaos/bibop-action@v1
         with:
-          path: ${{ runner.workspace }}
+          path: .
           recipe: .bibop/yo.recipe
 
   Aligo:
