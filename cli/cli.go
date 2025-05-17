@@ -97,7 +97,7 @@ func Run(gitRev string, gomod []byte) {
 
 	if !errs.IsEmpty() {
 		terminal.Error("Options parsing errors:")
-		terminal.Error(errs.Error("- "))
+		terminal.Error(errs.Error(" - "))
 		os.Exit(1)
 	}
 
@@ -124,7 +124,12 @@ func Run(gitRev string, gomod []byte) {
 		os.Exit(0)
 	}
 
-	process(args.Flatten())
+	err := process(args.Flatten())
+
+	if err != nil {
+		terminal.Error(err)
+		os.Exit(1)
+	}
 }
 
 // preConfigureUI preconfigures UI based on information about user terminal
@@ -168,26 +173,24 @@ func readFromStdin() ([]byte, error) {
 }
 
 // process start data processing
-func process(query string) {
+func process(query string) error {
 	data, err := readData()
 
 	if err != nil {
-		terminal.Error(err)
-		os.Exit(1)
+		return err
 	}
 
 	yaml, err := simpleyaml.NewYaml(data)
 
 	if err != nil {
-		terminal.Error(err)
-		os.Exit(1)
+		return err
 	}
 
-	execQuery(yaml, query)
+	return execQuery(yaml, query)
 }
 
 // execQuery executes query over YAML
-func execQuery(yaml *simpleyaml.Yaml, query string) {
+func execQuery(yaml *simpleyaml.Yaml, query string) error {
 	var data []*simpleyaml.Yaml
 
 	for _, q := range parseQuery(query) {
@@ -208,9 +211,15 @@ func execQuery(yaml *simpleyaml.Yaml, query string) {
 		if len(q.Processors) == 0 {
 			renderData(data)
 		} else {
-			processData(q.Processors, data)
+			err := processData(q.Processors, data)
+
+			if err != nil {
+				return err
+			}
 		}
 	}
+
+	return nil
 }
 
 // execArrayTokenSelector executes array query token over given data
@@ -297,7 +306,7 @@ func renderData(data []*simpleyaml.Yaml) {
 }
 
 // processData runs processors over given data
-func processData(processor []string, data []*simpleyaml.Yaml) {
+func processData(processor []string, data []*simpleyaml.Yaml) error {
 	var result interface{}
 
 	for _, pf := range processor {
@@ -309,8 +318,7 @@ func processData(processor []string, data []*simpleyaml.Yaml) {
 		case "sort":
 			result = processorFuncSort(result)
 		default:
-			terminal.Error("Unknown function \"%s\"", pf)
-			os.Exit(1)
+			return fmt.Errorf("Unknown function %q", pf)
 		}
 	}
 
@@ -326,6 +334,8 @@ func processData(processor []string, data []*simpleyaml.Yaml) {
 			fmt.Println(v)
 		}
 	}
+
+	return nil
 }
 
 // processorFuncLength is a length processor
