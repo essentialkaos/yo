@@ -32,8 +32,11 @@ jobs:
       - name: Build binary
         run: make all
 
-      - name: Run tests
-        run: .scripts/script.sh
+      - name: Run test recipe with Bibop
+        uses: essentialkaos/bibop-action@v1
+        with:
+          path: ${{ runner.workspace }}
+          recipe: .bibop/yo.recipe
 
   Aligo:
     name: Aligo
