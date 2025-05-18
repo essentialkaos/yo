@@ -2,7 +2,7 @@ package cli
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 //                                                                                    //
-//                         Copyright (c) 2024 ESSENTIAL KAOS                          //
+//                         Copyright (c) 2025 ESSENTIAL KAOS                          //
 //      Apache License, Version 2.0 <https://www.apache.org/licenses/LICENSE-2.0>     //
 //                                                                                    //
 // ////////////////////////////////////////////////////////////////////////////////// //
@@ -14,18 +14,18 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/essentialkaos/ek/v12/fmtc"
-	"github.com/essentialkaos/ek/v12/options"
-	"github.com/essentialkaos/ek/v12/support"
-	"github.com/essentialkaos/ek/v12/support/deps"
-	"github.com/essentialkaos/ek/v12/terminal"
-	"github.com/essentialkaos/ek/v12/terminal/tty"
-	"github.com/essentialkaos/ek/v12/usage"
-	"github.com/essentialkaos/ek/v12/usage/completion/bash"
-	"github.com/essentialkaos/ek/v12/usage/completion/fish"
-	"github.com/essentialkaos/ek/v12/usage/completion/zsh"
-	"github.com/essentialkaos/ek/v12/usage/man"
-	"github.com/essentialkaos/ek/v12/usage/update"
+	"github.com/essentialkaos/ek/v13/fmtc"
+	"github.com/essentialkaos/ek/v13/options"
+	"github.com/essentialkaos/ek/v13/support"
+	"github.com/essentialkaos/ek/v13/support/deps"
+	"github.com/essentialkaos/ek/v13/terminal"
+	"github.com/essentialkaos/ek/v13/terminal/tty"
+	"github.com/essentialkaos/ek/v13/usage"
+	"github.com/essentialkaos/ek/v13/usage/completion/bash"
+	"github.com/essentialkaos/ek/v13/usage/completion/fish"
+	"github.com/essentialkaos/ek/v13/usage/completion/zsh"
+	"github.com/essentialkaos/ek/v13/usage/man"
+	"github.com/essentialkaos/ek/v13/usage/update"
 
 	"github.com/essentialkaos/go-simpleyaml/v2"
 )
@@ -34,7 +34,7 @@ import (
 
 const (
 	APP  = "Yo"
-	VER  = "1.0.1"
+	VER  = "1.0.2"
 	DESC = "Command-line YAML processor"
 )
 
@@ -97,7 +97,7 @@ func Run(gitRev string, gomod []byte) {
 
 	if !errs.IsEmpty() {
 		terminal.Error("Options parsing errors:")
-		terminal.Error(errs.String())
+		terminal.Error(errs.Error(" - "))
 		os.Exit(1)
 	}
 
@@ -124,7 +124,12 @@ func Run(gitRev string, gomod []byte) {
 		os.Exit(0)
 	}
 
-	process(args.Flatten())
+	err := process(args.Flatten())
+
+	if err != nil {
+		terminal.Error(err)
+		os.Exit(1)
+	}
 }
 
 // preConfigureUI preconfigures UI based on information about user terminal
@@ -168,26 +173,24 @@ func readFromStdin() ([]byte, error) {
 }
 
 // process start data processing
-func process(query string) {
+func process(query string) error {
 	data, err := readData()
 
 	if err != nil {
-		terminal.Error(err)
-		os.Exit(1)
+		return err
 	}
 
 	yaml, err := simpleyaml.NewYaml(data)
 
 	if err != nil {
-		terminal.Error(err)
-		os.Exit(1)
+		return err
 	}
 
-	execQuery(yaml, query)
+	return execQuery(yaml, query)
 }
 
 // execQuery executes query over YAML
-func execQuery(yaml *simpleyaml.Yaml, query string) {
+func execQuery(yaml *simpleyaml.Yaml, query string) error {
 	var data []*simpleyaml.Yaml
 
 	for _, q := range parseQuery(query) {
@@ -208,9 +211,15 @@ func execQuery(yaml *simpleyaml.Yaml, query string) {
 		if len(q.Processors) == 0 {
 			renderData(data)
 		} else {
-			processData(q.Processors, data)
+			err := processData(q.Processors, data)
+
+			if err != nil {
+				return err
+			}
 		}
 	}
+
+	return nil
 }
 
 // execArrayTokenSelector executes array query token over given data
@@ -297,7 +306,7 @@ func renderData(data []*simpleyaml.Yaml) {
 }
 
 // processData runs processors over given data
-func processData(processor []string, data []*simpleyaml.Yaml) {
+func processData(processor []string, data []*simpleyaml.Yaml) error {
 	var result interface{}
 
 	for _, pf := range processor {
@@ -309,8 +318,7 @@ func processData(processor []string, data []*simpleyaml.Yaml) {
 		case "sort":
 			result = processorFuncSort(result)
 		default:
-			terminal.Error("Unknown function \"%s\"", pf)
-			os.Exit(1)
+			return fmt.Errorf("Unknown function %q", pf)
 		}
 	}
 
@@ -326,6 +334,8 @@ func processData(processor []string, data []*simpleyaml.Yaml) {
 			fmt.Println(v)
 		}
 	}
+
+	return nil
 }
 
 // processorFuncLength is a length processor

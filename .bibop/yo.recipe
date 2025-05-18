@@ -1,0 +1,110 @@
+# Bibop recipe for MkCryptPasswd
+# See more: https://kaos.sh/bibop
+
+# Basic selectors
+
+command "yo -f data.yaml .name" "Basic selectors (String)"
+  exit 0
+  output-contains "John Doe"
+
++command "yo -f data.yaml .age" "Basic selectors (Int)"
+  exit 0
+  output-contains "35"
+
++command "yo -f data.yaml .balance" "Basic selectors (Float)"
+  exit 0
+  output-contains "45.89"
+
++command "yo -f data.yaml .admin" "Basic selectors (Bool)"
+  exit 0
+  output-contains "true"
+
+# Map selectors
+
+command "yo -f data.yaml .meta.uid" "Map selectors (1)"
+  exit 0
+  output-contains "120"
+
++command "yo -f data.yaml .meta.gid" "Map selectors (2)"
+  exit 0
+  output-contains "350"
+
+# Array selectors
+
+command "yo -f data.yaml '.categories[0]'" "Array selectors (1)"
+  exit 0
+  output-contains "category1"
+
++command "yo -f data.yaml '.categories[0:1]'" "Array selectors (2)"
+  exit 0
+  output-contains "category1"
+
++command "yo -f data.yaml '.categories[:1]'" "Array selectors (3)"
+  exit 0
+  output-contains "category1"
+
++command "yo -f data.yaml '.categories[]'" "Array selectors (4)"
+  exit 0
+  output-match "category1\ncategory2"
+
++command "yo -f data.yaml '.categories[:]'" "Array selectors (5)"
+  exit 0
+  output-match "category1\ncategory2"
+
++command "yo -f data.yaml '.categories[0,1]'" "Array selectors (6)"
+  exit 0
+  output-match "category1\ncategory2"
+
++command "yo -f data.yaml '.categories[1,0]'" "Array selectors (7)"
+  exit 0
+  output-match "category2\ncategory1"
+
++command "yo -f data.yaml '.categories[0,1,2,3,4]'" "Array selectors (8)"
+  exit 0
+  output-match "category1\ncategory2"
+
++command "yo -f data.yaml '.categories[0:2]'" "Array selectors (9)"
+  exit 0
+  output-match "category1\ncategory2"
+
++command "yo -f data.yaml .array2" "Array selectors (10)"
+  exit 0
+  output-match "- file: test1\n  size: 100\n- file: test2\n  size: 200"
+
++command "yo -f data.yaml .array2[0].file" "Array selectors (11)"
+  exit 0
+  output-contains "test1"
+
+# Processors
+
+command "yo -f data.yaml '.name | length'" "Length calculation (1)"
+  exit 0
+  output-contains "8"
+
+command "yo -f data.yaml '.categories | length'" "Length calculation (2)"
+  exit 0
+  output-contains "2"
+
+command "yo -f data.yaml '.meta | length'" "Length calculation (3)"
+  exit 0
+  output-contains "2"
+
+command "yo -f data.yaml '.array2 | length'" "Length calculation (4)"
+  exit 0
+  output-contains "2"
+
+command "yo -f data.yaml '.array2[] | length'" "Length calculation (5)"
+  exit 0
+  output-match "2\n2"
+
+command "yo -f data.yaml '.meta | keys | length'" "Length calculation (6)"
+  exit 0
+  output-contains "2"
+
+command "yo -f data.yaml '.meta | keys | sort | length'" "Length calculation (7)"
+  exit 0
+  output-contains "2"
+
+command "yo -f data.yaml '.meta | keys | sort'" "Sort keys"
+  exit 0
+  output-match "gid\nuid"
