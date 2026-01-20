@@ -34,7 +34,7 @@ import (
 
 const (
 	APP  = "Yo"
-	VER  = "1.0.2"
+	VER  = "1.1.0"
 	DESC = "Command-line YAML processor"
 )
 
@@ -44,6 +44,7 @@ const (
 	OPT_HELP      = "h:help"
 	OPT_VER       = "v:version"
 
+	OPT_UPDATE       = "U:update"
 	OPT_VERB_VER     = "vv:verbose-version"
 	OPT_COMPLETION   = "completion"
 	OPT_GENERATE_MAN = "generate-man"
@@ -92,6 +93,7 @@ var colorTagVer string
 // Run is main application function
 func Run(gitRev string, gomod []byte) {
 	preConfigureUI()
+	preConfigureOptions()
 
 	args, errs := options.Parse(optMap)
 
@@ -118,6 +120,8 @@ func Run(gitRev string, gomod []byte) {
 			WithDeps(deps.Extract(gomod)).
 			Print()
 		os.Exit(0)
+	case withSelfUpdate && options.GetB(OPT_UPDATE):
+		os.Exit(updateBinary())
 	case options.GetB(OPT_HELP),
 		len(args) == 0 && !options.Has(OPT_FROM_FILE):
 		genUsage().Print()
@@ -137,19 +141,24 @@ func preConfigureUI() {
 	if !tty.IsTTY() {
 		fmtc.DisableColors = true
 	}
-}
-
-// configureUI configures user interface
-func configureUI() {
-	if options.GetB(OPT_NO_COLOR) {
-		fmtc.DisableColors = true
-	}
 
 	switch {
 	case fmtc.Is256ColorsSupported():
 		colorTagApp, colorTagVer = "{*}{#220}", "{#220}"
 	default:
 		colorTagApp, colorTagVer = "{*}{y}", "{y}"
+	}
+}
+
+// preConfigureOptions preconfigures command-line options based on build tags
+func preConfigureOptions() {
+	optMap.SetIf(withSelfUpdate, OPT_UPDATE, &options.V{Type: options.MIXED})
+}
+
+// configureUI configures user interface
+func configureUI() {
+	if options.GetB(OPT_NO_COLOR) {
+		fmtc.DisableColors = true
 	}
 }
 
@@ -599,6 +608,11 @@ func genUsage() *usage.Info {
 
 	info.AddOption(OPT_FROM_FILE, "Read data from file", "filename")
 	info.AddOption(OPT_NO_COLOR, "Disable colors in output")
+
+	if withSelfUpdate {
+		info.AddOption(OPT_UPDATE, "Update application to the latest version")
+	}
+
 	info.AddOption(OPT_HELP, "Show this help message")
 	info.AddOption(OPT_VER, "Show version")
 

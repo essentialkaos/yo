@@ -17,7 +17,7 @@ Yo is a command-line YAML processor.
 
 #### From source
 
-To build the Yo from scratch, make sure you have a working Go [1.23+](https://github.com/essentialkaos/.github/blob/master/GO-VERSION-SUPPORT.md) workspace (_[instructions](https://go.dev/doc/install)_), then:
+To build the Yo from scratch, make sure you have a working Go [1.24+](https://github.com/essentialkaos/.github/blob/master/GO-VERSION-SUPPORT.md) workspace (_[instructions](https://go.dev/doc/install)_), then:
 
 ```
 go install github.com/essentialkaos/yo@latest
@@ -37,6 +37,23 @@ You can download prebuilt binaries for Linux and macOS from [EK Apps Repository]
 ```bash
 bash <(curl -fsSL https://apps.kaos.st/get) yo
 ```
+
+### Upgrading
+
+Since version `1.1.0` you can update `yo` to the latest release using [self-update feature](https://github.com/essentialkaos/.github/blob/master/APPS-UPDATE.md):
+
+```bash
+yo --update
+```
+
+This command will runs a self-update in interactive mode. If you want to run a quiet update (_no output_), use the following command:
+
+```bash
+yo --update=quiet
+```
+
+> [!NOTE]
+> Please note that the self-update feature only works with binaries that are downloaded from the [EK Apps Repository](https://apps.kaos.st/yo/latest). Binaries from packages do not have a self-update feature and must be upgraded via the package manager.
 
 ### Usage
 
