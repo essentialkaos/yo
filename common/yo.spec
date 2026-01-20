@@ -6,7 +6,7 @@
 
 Summary:        Command-line YAML processor
 Name:           yo
-Version:        1.0.2
+Version:        1.1.0
 Release:        0%{?dist}
 Group:          Applications/System
 License:        Apache License, Version 2.0
@@ -16,7 +16,7 @@ Source0:        https://source.kaos.st/%{name}/%{name}-%{version}.tar.bz2
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:  golang >= 1.23
+BuildRequires:  golang >= 1.24
 
 Provides:       %{name} = %{version}-%{release}
 
@@ -96,6 +96,9 @@ fi
 ################################################################################
 
 %changelog
+* Tue Jan 20 2026 Anton Novojilov <andy@essentialkaos.com> - 1.1.0-0
+- Dependencies update
+
 * Sun May 18 2025 Anton Novojilov <andy@essentialkaos.com> - 1.0.2-0
 - Code refactoring
 - Dependencies update
