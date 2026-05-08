@@ -1,9 +1,9 @@
 <p align="center"><a href="#readme"><img src=".github/images/card.svg"/></a></p>
 
 <p align="center">
-  <a href="https://kaos.sh/w/yo/ci"><img src="https://kaos.sh/w/yo/ci.svg" alt="GitHub Actions CI Status" /></a>
-  <a href="https://kaos.sh/w/yo/codeql"><img src="https://kaos.sh/w/yo/codeql.svg" alt="GitHub Actions CodeQL Status" /></a>
-  <a href="https://kaos.sh/r/yo"><img src="https://kaos.sh/r/yo.svg" alt="GoReportCard" /></a>
+  <a href="https://kaos.sh/r/yo"><img src="https://goreportcard.com/badge/github.com/essentialkaos/yo" alt="GoReportCard" /></a>
+  <a href="https://kaos.sh/w/yo/ci"><img src="https://github.com/essentialkaos/yo/actions/workflows/ci.yml/badge.svg" alt="GitHub Actions CI Status" /></a>
+  <a href="https://kaos.sh/w/yo/codeql"><img src="https://github.com/essentialkaos/yo/actions/workflows/codeql.yml/badge.svg" alt="GitHub Actions CodeQL Status" /></a>
   <a href="#license"><img src=".github/images/license.svg"/></a>
 </p>
 
@@ -17,7 +17,7 @@ Yo is a command-line YAML processor.
 
 #### From source
 
-To build the Yo from scratch, make sure you have a working Go [1.24+](https://github.com/essentialkaos/.github/blob/master/GO-VERSION-SUPPORT.md) workspace (_[instructions](https://go.dev/doc/install)_), then:
+To build the Yo from scratch, make sure you have a working Go [1.25+](https://github.com/essentialkaos/.github/blob/master/GO-VERSION-SUPPORT.md) workspace (_[instructions](https://go.dev/doc/install)_), then:
 
 ```
 go install github.com/essentialkaos/yo@latest
@@ -63,8 +63,8 @@ yo --update=quiet
 
 | Branch | Status |
 |--------|--------|
-| `master` | [![CI](https://kaos.sh/w/yo/ci.svg?branch=master)](https://kaos.sh/w/yo/ci?query=branch:master) |
-| `develop` | [![CI](https://kaos.sh/w/yo/ci.svg?branch=develop)](https://kaos.sh/w/yo/ci?query=branch:develop) |
+| `master` | [![CI](https://github.com/essentialkaos/yo/actions/workflows/ci.yml/badge.svg?branch=master)](https://kaos.sh/w/yo/ci?query=branch:master) |
+| `develop` | [![CI](https://github.com/essentialkaos/yo/actions/workflows/ci.yml/badge.svg?branch=develop)](https://kaos.sh/w/yo/ci?query=branch:develop) |
 
 ### Contributing
 
