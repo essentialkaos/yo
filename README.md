@@ -1,7 +1,6 @@
 <p align="center"><a href="#readme"><img src=".github/images/card.svg"/></a></p>
 
 <p align="center">
-  <a href="https://kaos.sh/r/yo"><img src="https://goreportcard.com/badge/github.com/essentialkaos/yo" alt="GoReportCard" /></a>
   <a href="https://kaos.sh/w/yo/ci"><img src="https://github.com/essentialkaos/yo/actions/workflows/ci.yml/badge.svg" alt="GitHub Actions CI Status" /></a>
   <a href="https://kaos.sh/w/yo/codeql"><img src="https://github.com/essentialkaos/yo/actions/workflows/codeql.yml/badge.svg" alt="GitHub Actions CodeQL Status" /></a>
   <a href="#license"><img src=".github/images/license.svg"/></a>
